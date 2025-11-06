@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - E-commerce</title>
+    <!-- 1. Link para o arquivo CSS -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- Card principal do formulário de login -->
+    <div class="login-card">
+        <h2>Login E-commerce</h2>
+
+        <!-- Formulário (Form) -->
+        <!-- O 'id' permite que o JavaScript encontre este formulário -->
+        <form id="login-form">
+            
+            <!-- Campo de E-mail -->
+            <!-- O 'id' no 'div' (container) é novo, para escondê-lo depois -->
+            <div class="input-group" id="email-container">
+                <label for="email">E-mail</label>
+                <!-- O 'id' no 'input' permite ao JS pegar o valor -->
+                <input type="email" id="email" name="email" required>
+            </div>
+
+            <!-- Campo de Senha -->
+            <!-- O 'id' no 'div' (container) é novo, para escondê-lo depois -->
+            <div class="input-group" id="senha-container">
+                <label for="senha">Senha</label>
+                <input type="password" id="senha" name="senha" required>
+            </div>
+
+            <!-- 
+              ============================================================
+              === NOVO CAMPO A2F (Passo 21.0) ===
+              ============================================================
+              Este campo começa escondido (style="display: none;")
+              O JavaScript vai mostrá-lo quando for a hora certa.
+            -->
+            <div class="input-group" id="a2f-container" style="display: none;">
+                <label for="codigo-a2f">Código A2F</label>
+                <!-- O 'id' é 'codigo-a2f' -->
+                <input type="text" id="codigo-a2f" name="codigo-a2f" placeholder="Insira o código de 6 dígitos">
+            </div>
+            <!-- ========================================================== -->
+
+
+            <!-- 
+              Mensagem de Erro/Info (Pública) 
+              O JS vai usar este <p> para mostrar feedback
+            -->
+            <!-- O 'id' é 'message-display' (antes era 'error-message') -->
+            <p class="error-message" id="message-display"></p>
+
+            <!-- Botão de Login -->
+            <!-- O 'id' 'login-button' é novo, para mudarmos o texto dele -->
+            <button type="submit" class="login-button" id="login-button">Entrar</button>
+        </form>
+    </div>
+
+    <!-- 
+      ============================================================
+      === MUDANÇA (PASSO 38.0) ===
+      Mudamos para "?v=5" para forçar o navegador a baixar o arquivo novo.
+      ============================================================
+    -->
+    <script src="app.js?v=5"></script>
+</body>
+</html>

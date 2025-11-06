@@ -1,0 +1,16 @@
+C:\Users\luanj\OneDrive\Área de Trabalho\EcommerceProjeto\src\Ecommerce.Application\bin\Debug\net8.0\Ecommerce.Application.deps.json
+C:\Users\luanj\OneDrive\Área de Trabalho\EcommerceProjeto\src\Ecommerce.Application\bin\Debug\net8.0\Ecommerce.Application.dll
+C:\Users\luanj\OneDrive\Área de Trabalho\EcommerceProjeto\src\Ecommerce.Application\bin\Debug\net8.0\Ecommerce.Application.pdb
+C:\Users\luanj\OneDrive\Área de Trabalho\EcommerceProjeto\src\Ecommerce.Application\bin\Debug\net8.0\Ecommerce.Domain.dll
+C:\Users\luanj\OneDrive\Área de Trabalho\EcommerceProjeto\src\Ecommerce.Application\bin\Debug\net8.0\Ecommerce.Domain.pdb
+C:\Users\luanj\OneDrive\Área de Trabalho\EcommerceProjeto\src\Ecommerce.Application\obj\Debug\net8.0\Ecommerce.Application.csproj.AssemblyReference.cache
+C:\Users\luanj\OneDrive\Área de Trabalho\EcommerceProjeto\src\Ecommerce.Application\obj\Debug\net8.0\Ecommerce.Application.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\luanj\OneDrive\Área de Trabalho\EcommerceProjeto\src\Ecommerce.Application\obj\Debug\net8.0\Ecommerce.Application.AssemblyInfoInputs.cache
+C:\Users\luanj\OneDrive\Área de Trabalho\EcommerceProjeto\src\Ecommerce.Application\obj\Debug\net8.0\Ecommerce.Application.AssemblyInfo.cs
+C:\Users\luanj\OneDrive\Área de Trabalho\EcommerceProjeto\src\Ecommerce.Application\obj\Debug\net8.0\Ecommerce.Application.csproj.CoreCompileInputs.cache
+C:\Users\luanj\OneDrive\Área de Trabalho\EcommerceProjeto\src\Ecommerce.Application\obj\Debug\net8.0\Ecommerce.Application.sourcelink.json
+C:\Users\luanj\OneDrive\Área de Trabalho\EcommerceProjeto\src\Ecommerce.Application\obj\Debug\net8.0\Ecommerc.C5F54E74.Up2Date
+C:\Users\luanj\OneDrive\Área de Trabalho\EcommerceProjeto\src\Ecommerce.Application\obj\Debug\net8.0\Ecommerce.Application.dll
+C:\Users\luanj\OneDrive\Área de Trabalho\EcommerceProjeto\src\Ecommerce.Application\obj\Debug\net8.0\refint\Ecommerce.Application.dll
+C:\Users\luanj\OneDrive\Área de Trabalho\EcommerceProjeto\src\Ecommerce.Application\obj\Debug\net8.0\Ecommerce.Application.pdb
+C:\Users\luanj\OneDrive\Área de Trabalho\EcommerceProjeto\src\Ecommerce.Application\obj\Debug\net8.0\ref\Ecommerce.Application.dll

@@ -1,0 +1,104 @@
+/* Reset básico e fonte */
+body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    background-color: #f4f7f6;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
+
+/* O "Card" de Login */
+.login-card {
+    background-color: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+    padding: 40px;
+    width: 100%;
+    max-width: 400px;
+    box-sizing: border-box; /* Garante que o padding não aumente o width */
+}
+
+.login-card h2 {
+    text-align: center;
+    color: #333;
+    margin-top: 0;
+    margin-bottom: 30px;
+}
+
+/* Grupo de Input (Label + Campo) */
+.input-group {
+    margin-bottom: 20px;
+    position: relative;
+}
+
+.input-group label {
+    display: block;
+    margin-bottom: 8px;
+    color: #555;
+    font-size: 0.9em;
+}
+
+.input-group input {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    box-sizing: border-box; /* Garante que o padding não aumente o width */
+    font-size: 1em;
+}
+
+/* Botão de Login */
+.login-button {
+    width: 100%;
+    padding: 14px;
+    border: none;
+    border-radius: 5px;
+    background-color: #007bff;
+    color: white;
+    font-size: 1.1em;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.login-button:hover {
+    background-color: #0056b3;
+}
+
+.login-button:disabled {
+    background-color: #a0a0a0;
+    cursor: not-allowed;
+}
+
+
+/* ============================================================
+  === ESTILOS DE MENSAGEM (Passo 21.2) ===
+  ============================================================
+*/
+
+/* Mensagem de Erro (Vermelha) */
+.error-message {
+    color: #D8000C; /* Vermelho */
+    background-color: #FFD2D2;
+    padding: 10px;
+    border-radius: 5px;
+    margin-bottom: 15px;
+    display: none; /* Começa escondido */
+    text-align: center;
+    font-size: 0.9em;
+}
+
+/* Mensagem de Informação (Azul) - NOVO */
+.info-message {
+    color: #00529B; /* Azul */
+    background-color: #BDE5F8;
+    padding: 10px;
+    border-radius: 5px;
+    margin-bottom: 15px;
+    display: none; /* Começa escondido */
+    text-align: center;
+    font-size: 0.9em;
+}

@@ -1,12 +1,13 @@
-C:\Users\luanj\OneDrive\Área de Trabalho\EcommerceProjeto\src\Ecommerce.API\bin\Debug\net8.0\appsettings.Development.json
-C:\Users\luanj\OneDrive\Área de Trabalho\EcommerceProjeto\src\Ecommerce.API\bin\Debug\net8.0\appsettings.json
+C:\Users\luanj\OneDrive\Área de Trabalho\EcommerceProjeto\src\Ecommerce.API\bin\Debug\net8.0\Ecommerce.API.staticwebassets.runtime.json
 C:\Users\luanj\OneDrive\Área de Trabalho\EcommerceProjeto\src\Ecommerce.API\bin\Debug\net8.0\Ecommerce.API.staticwebassets.endpoints.json
 C:\Users\luanj\OneDrive\Área de Trabalho\EcommerceProjeto\src\Ecommerce.API\bin\Debug\net8.0\Ecommerce.API.exe
 C:\Users\luanj\OneDrive\Área de Trabalho\EcommerceProjeto\src\Ecommerce.API\bin\Debug\net8.0\Ecommerce.API.deps.json
 C:\Users\luanj\OneDrive\Área de Trabalho\EcommerceProjeto\src\Ecommerce.API\bin\Debug\net8.0\Ecommerce.API.runtimeconfig.json
 C:\Users\luanj\OneDrive\Área de Trabalho\EcommerceProjeto\src\Ecommerce.API\bin\Debug\net8.0\Ecommerce.API.dll
 C:\Users\luanj\OneDrive\Área de Trabalho\EcommerceProjeto\src\Ecommerce.API\bin\Debug\net8.0\Ecommerce.API.pdb
+C:\Users\luanj\OneDrive\Área de Trabalho\EcommerceProjeto\src\Ecommerce.API\bin\Debug\net8.0\BCrypt.Net-Next.dll
 C:\Users\luanj\OneDrive\Área de Trabalho\EcommerceProjeto\src\Ecommerce.API\bin\Debug\net8.0\Humanizer.dll
+C:\Users\luanj\OneDrive\Área de Trabalho\EcommerceProjeto\src\Ecommerce.API\bin\Debug\net8.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
 C:\Users\luanj\OneDrive\Área de Trabalho\EcommerceProjeto\src\Ecommerce.API\bin\Debug\net8.0\Microsoft.AspNetCore.OpenApi.dll
 C:\Users\luanj\OneDrive\Área de Trabalho\EcommerceProjeto\src\Ecommerce.API\bin\Debug\net8.0\Microsoft.Bcl.AsyncInterfaces.dll
 C:\Users\luanj\OneDrive\Área de Trabalho\EcommerceProjeto\src\Ecommerce.API\bin\Debug\net8.0\Microsoft.CodeAnalysis.dll
@@ -17,7 +18,15 @@ C:\Users\luanj\OneDrive\Área de Trabalho\EcommerceProjeto\src\Ecommerce.API\bin
 C:\Users\luanj\OneDrive\Área de Trabalho\EcommerceProjeto\src\Ecommerce.API\bin\Debug\net8.0\Microsoft.EntityFrameworkCore.Abstractions.dll
 C:\Users\luanj\OneDrive\Área de Trabalho\EcommerceProjeto\src\Ecommerce.API\bin\Debug\net8.0\Microsoft.EntityFrameworkCore.Design.dll
 C:\Users\luanj\OneDrive\Área de Trabalho\EcommerceProjeto\src\Ecommerce.API\bin\Debug\net8.0\Microsoft.EntityFrameworkCore.Relational.dll
+C:\Users\luanj\OneDrive\Área de Trabalho\EcommerceProjeto\src\Ecommerce.API\bin\Debug\net8.0\Microsoft.Extensions.Configuration.Abstractions.dll
 C:\Users\luanj\OneDrive\Área de Trabalho\EcommerceProjeto\src\Ecommerce.API\bin\Debug\net8.0\Microsoft.Extensions.DependencyModel.dll
+C:\Users\luanj\OneDrive\Área de Trabalho\EcommerceProjeto\src\Ecommerce.API\bin\Debug\net8.0\Microsoft.Extensions.Primitives.dll
+C:\Users\luanj\OneDrive\Área de Trabalho\EcommerceProjeto\src\Ecommerce.API\bin\Debug\net8.0\Microsoft.IdentityModel.Abstractions.dll
+C:\Users\luanj\OneDrive\Área de Trabalho\EcommerceProjeto\src\Ecommerce.API\bin\Debug\net8.0\Microsoft.IdentityModel.JsonWebTokens.dll
+C:\Users\luanj\OneDrive\Área de Trabalho\EcommerceProjeto\src\Ecommerce.API\bin\Debug\net8.0\Microsoft.IdentityModel.Logging.dll
+C:\Users\luanj\OneDrive\Área de Trabalho\EcommerceProjeto\src\Ecommerce.API\bin\Debug\net8.0\Microsoft.IdentityModel.Protocols.dll
+C:\Users\luanj\OneDrive\Área de Trabalho\EcommerceProjeto\src\Ecommerce.API\bin\Debug\net8.0\Microsoft.IdentityModel.Protocols.OpenIdConnect.dll
+C:\Users\luanj\OneDrive\Área de Trabalho\EcommerceProjeto\src\Ecommerce.API\bin\Debug\net8.0\Microsoft.IdentityModel.Tokens.dll
 C:\Users\luanj\OneDrive\Área de Trabalho\EcommerceProjeto\src\Ecommerce.API\bin\Debug\net8.0\Microsoft.OpenApi.dll
 C:\Users\luanj\OneDrive\Área de Trabalho\EcommerceProjeto\src\Ecommerce.API\bin\Debug\net8.0\Mono.TextTemplating.dll
 C:\Users\luanj\OneDrive\Área de Trabalho\EcommerceProjeto\src\Ecommerce.API\bin\Debug\net8.0\MySqlConnector.dll
@@ -31,6 +40,7 @@ C:\Users\luanj\OneDrive\Área de Trabalho\EcommerceProjeto\src\Ecommerce.API\bin
 C:\Users\luanj\OneDrive\Área de Trabalho\EcommerceProjeto\src\Ecommerce.API\bin\Debug\net8.0\System.Composition.Hosting.dll
 C:\Users\luanj\OneDrive\Área de Trabalho\EcommerceProjeto\src\Ecommerce.API\bin\Debug\net8.0\System.Composition.Runtime.dll
 C:\Users\luanj\OneDrive\Área de Trabalho\EcommerceProjeto\src\Ecommerce.API\bin\Debug\net8.0\System.Composition.TypedParts.dll
+C:\Users\luanj\OneDrive\Área de Trabalho\EcommerceProjeto\src\Ecommerce.API\bin\Debug\net8.0\System.IdentityModel.Tokens.Jwt.dll
 C:\Users\luanj\OneDrive\Área de Trabalho\EcommerceProjeto\src\Ecommerce.API\bin\Debug\net8.0\cs\Microsoft.CodeAnalysis.resources.dll
 C:\Users\luanj\OneDrive\Área de Trabalho\EcommerceProjeto\src\Ecommerce.API\bin\Debug\net8.0\de\Microsoft.CodeAnalysis.resources.dll
 C:\Users\luanj\OneDrive\Área de Trabalho\EcommerceProjeto\src\Ecommerce.API\bin\Debug\net8.0\es\Microsoft.CodeAnalysis.resources.dll
@@ -97,6 +107,7 @@ C:\Users\luanj\OneDrive\Área de Trabalho\EcommerceProjeto\src\Ecommerce.API\obj
 C:\Users\luanj\OneDrive\Área de Trabalho\EcommerceProjeto\src\Ecommerce.API\obj\Debug\net8.0\Ecommerce.API.csproj.CoreCompileInputs.cache
 C:\Users\luanj\OneDrive\Área de Trabalho\EcommerceProjeto\src\Ecommerce.API\obj\Debug\net8.0\Ecommerce.API.MvcApplicationPartsAssemblyInfo.cs
 C:\Users\luanj\OneDrive\Área de Trabalho\EcommerceProjeto\src\Ecommerce.API\obj\Debug\net8.0\Ecommerce.API.MvcApplicationPartsAssemblyInfo.cache
+C:\Users\luanj\OneDrive\Área de Trabalho\EcommerceProjeto\src\Ecommerce.API\obj\Debug\net8.0\Ecommerce.API.sourcelink.json
 C:\Users\luanj\OneDrive\Área de Trabalho\EcommerceProjeto\src\Ecommerce.API\obj\Debug\net8.0\rjimswa.dswa.cache.json
 C:\Users\luanj\OneDrive\Área de Trabalho\EcommerceProjeto\src\Ecommerce.API\obj\Debug\net8.0\rjsmrazor.dswa.cache.json
 C:\Users\luanj\OneDrive\Área de Trabalho\EcommerceProjeto\src\Ecommerce.API\obj\Debug\net8.0\rjsmcshtml.dswa.cache.json
@@ -111,3 +122,5 @@ C:\Users\luanj\OneDrive\Área de Trabalho\EcommerceProjeto\src\Ecommerce.API\obj
 C:\Users\luanj\OneDrive\Área de Trabalho\EcommerceProjeto\src\Ecommerce.API\obj\Debug\net8.0\Ecommerce.API.pdb
 C:\Users\luanj\OneDrive\Área de Trabalho\EcommerceProjeto\src\Ecommerce.API\obj\Debug\net8.0\Ecommerce.API.genruntimeconfig.cache
 C:\Users\luanj\OneDrive\Área de Trabalho\EcommerceProjeto\src\Ecommerce.API\obj\Debug\net8.0\ref\Ecommerce.API.dll
+C:\Users\luanj\OneDrive\Área de Trabalho\EcommerceProjeto\src\Ecommerce.API\bin\Debug\net8.0\appsettings.Development.json
+C:\Users\luanj\OneDrive\Área de Trabalho\EcommerceProjeto\src\Ecommerce.API\bin\Debug\net8.0\appsettings.json
