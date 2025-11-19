@@ -1,4 +1,4 @@
-/* Reset básico e fonte */
+/* Reset básico */
 body {
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
     background-color: #f4f7f6;
@@ -10,28 +10,39 @@ body {
     min-height: 100vh;
 }
 
-/* O "Card" de Login */
+/* Card Principal */
 .login-card {
     background-color: #ffffff;
     border-radius: 10px;
     box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
     padding: 40px;
     width: 100%;
-    max-width: 400px;
-    box-sizing: border-box; /* Garante que o padding não aumente o width */
+    max-width: 500px;
+    min-height: 400px;
+    box-sizing: border-box;
+    transition: max-width 0.4s ease-in-out;
+    position: relative;
+    display: flex;
+    flex-direction: column;
 }
 
 .login-card h2 {
     text-align: center;
     color: #333;
     margin-top: 0;
-    margin-bottom: 30px;
+    margin-bottom: 20px;
 }
 
-/* Grupo de Input (Label + Campo) */
+.divisor {
+    border-top: 1px solid #eee;
+    margin: 20px 0;
+    width: 100%;
+}
+
+/* Inputs e Selects */
 .input-group {
     margin-bottom: 20px;
-    position: relative;
+    width: 100%;
 }
 
 .input-group label {
@@ -41,16 +52,17 @@ body {
     font-size: 0.9em;
 }
 
-.input-group input {
+.input-group input,
+.input-group select {
     width: 100%;
     padding: 12px;
     border: 1px solid #ddd;
     border-radius: 5px;
-    box-sizing: border-box; /* Garante que o padding não aumente o width */
+    box-sizing: border-box;
     font-size: 1em;
 }
 
-/* Botão de Login */
+/* Botões */
 .login-button {
     width: 100%;
     padding: 14px;
@@ -73,32 +85,213 @@ body {
     cursor: not-allowed;
 }
 
+.top-right-button {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    padding: 8px 15px;
+    font-size: 0.85em;
+    background-color: #6c757d;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
 
-/* ============================================================
-  === ESTILOS DE MENSAGEM (Passo 21.2) ===
-  ============================================================
-*/
+.top-right-button:hover {
+    background-color: #5a6268;
+}
 
-/* Mensagem de Erro (Vermelha) */
+/* Links de Alternância */
+.switch-text {
+    text-align: center;
+    margin-top: 15px;
+    font-size: 0.9em;
+    color: #666;
+}
+
+.switch-text a {
+    color: #007bff;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.switch-text a:hover {
+    text-decoration: underline;
+}
+
+/* Mensagens */
 .error-message {
-    color: #D8000C; /* Vermelho */
+    color: #D8000C;
     background-color: #FFD2D2;
     padding: 10px;
     border-radius: 5px;
     margin-bottom: 15px;
-    display: none; /* Começa escondido */
+    display: none;
     text-align: center;
-    font-size: 0.9em;
 }
 
-/* Mensagem de Informação (Azul) - NOVO */
-.info-message {
-    color: #00529B; /* Azul */
-    background-color: #BDE5F8;
+.success-message {
+    color: #155724;
+    background-color: #D4EDDA;
     padding: 10px;
     border-radius: 5px;
     margin-bottom: 15px;
-    display: none; /* Começa escondido */
+    display: none;
+    text-align: center;
+}
+
+/* Dashboard Menu */
+.dashboard-menu {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+    gap: 15px;
+    margin-top: 20px;
+}
+
+.menu-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 15px;
+    background-color: #f8f9fa;
+    border: 2px solid #e9ecef;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    color: #333;
+    font-weight: bold;
     text-align: center;
     font-size: 0.9em;
+    height: 130px;
+}
+
+.menu-item:hover {
+    background-color: #e2e6ea;
+    border-color: #ced4da;
+    transform: translateY(-3px);
+    box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+}
+
+/* CRUD Peças */
+.pecas-form {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+}
+
+.btn-full-width {
+    grid-column: 1 / -1;
+    width: 100%;
+    padding: 14px;
+    border: none;
+    border-radius: 5px;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+    font-size: 1.1em;
+}
+
+.btn-add {
+    background-color: #28a745;
+}
+
+.btn-add:hover {
+    background-color: #218838;
+}
+
+.btn-save {
+    background-color: #17a2b8;
+}
+
+.btn-save:hover {
+    background-color: #138496;
+}
+
+.table-container {
+    width: 100%;
+    max-height: 400px;
+    overflow-y: auto;
+    margin-top: 10px;
+    border: 1px solid #eee;
+}
+
+.pecas-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.9em;
+}
+
+.pecas-table th {
+    background-color: #f1f1f1;
+    position: sticky;
+    top: 0;
+    text-align: left;
+    padding: 10px;
+    z-index: 1;
+}
+
+.pecas-table td {
+    border-bottom: 1px solid #eee;
+    padding: 10px;
+    vertical-align: middle;
+}
+
+.pecas-table tr:hover {
+    background-color: #f9f9f9;
+}
+
+.btn-editar {
+    background-color: #ffc107;
+    color: #333;
+    border: none;
+    padding: 6px 10px;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-right: 5px;
+    font-weight: bold;
+}
+
+.btn-editar:hover {
+    background-color: #e0a800;
+}
+
+.btn-deletar {
+    background-color: #dc3545;
+    color: white;
+    border: none;
+    padding: 6px 10px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.btn-deletar:hover {
+    background-color: #c82333;
+}
+
+/* Ponto */
+.ponto-buttons {
+    display: flex;
+    gap: 15px;
+    margin-top: 30px;
+}
+
+.btn-ponto {
+    flex: 1;
+    padding: 20px;
+    font-size: 1em;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+.btn-entrada {
+    background-color: #28a745;
+}
+
+.btn-saida {
+    background-color: #fd7e14;
 }

@@ -3,69 +3,83 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login - E-commerce</title>
-    <!-- 1. Link para o arquivo CSS -->
-    <link rel="stylesheet" href="style.css">
+    <title>Gestão - E-commerce</title>
+    <!-- Atualizamos a versão para carregar o novo CSS -->
+    <link rel="stylesheet" href="style.css?v=cadastro_v1">
 </head>
 <body>
 
-    <!-- Card principal do formulário de login -->
-    <div class="login-card">
-        <h2>Login E-commerce</h2>
+    <div class="login-card" id="main-card">
 
-        <!-- Formulário (Form) -->
-        <!-- O 'id' permite que o JavaScript encontre este formulário -->
+        <!-- ===========================
+             FORMULÁRIO DE LOGIN
+             =========================== -->
         <form id="login-form">
-            
-            <!-- Campo de E-mail -->
-            <!-- O 'id' no 'div' (container) é novo, para escondê-lo depois -->
-            <div class="input-group" id="email-container">
+            <h2>Login E-commerce</h2>
+
+            <div class="input-group">
                 <label for="email">E-mail</label>
-                <!-- O 'id' no 'input' permite ao JS pegar o valor -->
-                <input type="email" id="email" name="email" required>
+                <input type="email" id="email" name="email" required autocomplete="email">
             </div>
 
-            <!-- Campo de Senha -->
-            <!-- O 'id' no 'div' (container) é novo, para escondê-lo depois -->
-            <div class="input-group" id="senha-container">
+            <div class="input-group">
                 <label for="senha">Senha</label>
-                <input type="password" id="senha" name="senha" required>
+                <input type="password" id="senha" name="senha" required autocomplete="current-password">
             </div>
 
-            <!-- 
-              ============================================================
-              === NOVO CAMPO A2F (Passo 21.0) ===
-              ============================================================
-              Este campo começa escondido (style="display: none;")
-              O JavaScript vai mostrá-lo quando for a hora certa.
-            -->
-            <div class="input-group" id="a2f-container" style="display: none;">
-                <label for="codigo-a2f">Código A2F</label>
-                <!-- O 'id' é 'codigo-a2f' -->
-                <input type="text" id="codigo-a2f" name="codigo-a2f" placeholder="Insira o código de 6 dígitos">
-            </div>
-            <!-- ========================================================== -->
-
-
-            <!-- 
-              Mensagem de Erro/Info (Pública) 
-              O JS vai usar este <p> para mostrar feedback
-            -->
-            <!-- O 'id' é 'message-display' (antes era 'error-message') -->
-            <p class="error-message" id="message-display"></p>
-
-            <!-- Botão de Login -->
-            <!-- O 'id' 'login-button' é novo, para mudarmos o texto dele -->
+            <p class="error-message" id="login-error"></p>
+            
             <button type="submit" class="login-button" id="login-button">Entrar</button>
+
+            <!-- Link para alternar -->
+            <p class="switch-text">
+                Não tem uma conta? <a href="#" id="link-ir-cadastro">Cadastre-se</a>
+            </p>
         </form>
+
+        <!-- ===========================
+             FORMULÁRIO DE CADASTRO (Novo)
+             =========================== -->
+        <form id="register-form" style="display: none;">
+            <h2>Criar Nova Conta</h2>
+
+            <div class="input-group">
+                <label>Nome Completo</label>
+                <input type="text" id="reg-nome" required>
+            </div>
+
+            <div class="input-group">
+                <label>E-mail</label>
+                <input type="email" id="reg-email" required>
+            </div>
+
+            <div class="input-group">
+                <label>Senha</label>
+                <input type="password" id="reg-senha" required>
+            </div>
+
+            <!-- Select de Cargo -->
+            <div class="input-group">
+                <label>Cargo</label>
+                <select id="reg-cargo">
+                    <option value="Funcionario">Funcionário</option>
+                    <option value="Admin">Administrador</option>
+                </select>
+            </div>
+
+            <p class="error-message" id="reg-error"></p>
+            <p class="success-message" id="reg-success"></p>
+            
+            <button type="submit" class="login-button btn-add" id="reg-button">Cadastrar</button>
+
+            <!-- Link para alternar -->
+            <p class="switch-text">
+                Já tem conta? <a href="#" id="link-ir-login">Faça Login</a>
+            </p>
+        </form>
+
     </div>
 
-    <!-- 
-      ============================================================
-      === MUDANÇA (PASSO 38.0) ===
-      Mudamos para "?v=5" para forçar o navegador a baixar o arquivo novo.
-      ============================================================
-    -->
-    <script src="app.js?v=5"></script>
+    <script src="app.js?v=cadastro_v1"></script>
 </body>
 </html>

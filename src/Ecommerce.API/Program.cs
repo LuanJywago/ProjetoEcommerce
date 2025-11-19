@@ -35,29 +35,11 @@ using Ecommerce.Application.Features.Ponto.DTOs;
 // ========================================================================
 // === CONFIGURAÇÃO INICIAL (BUILDER) ===
 // ========================================================================
-
-// --- MUDANÇA CORS (1 de 3): Damos um nome para a nossa política ---
-var MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
-
 var builder = WebApplication.CreateBuilder(args);
 
 // ========================================================================
 // === REGISTRO DE SERVIÇOS (INJEÇÃO DE DEPENDÊNCIA) ===
 // ========================================================================
-
-// --- MUDANÇA CORS (2 de 3): Adicionamos o serviço de CORS ---
-builder.Services.AddCors(options =>
-{
-    options.AddPolicy(name: MyAllowSpecificOrigins,
-                      policy  =>
-                      {
-                          // Permite que o nosso frontend (http://localhost:5013)
-                          // faça requisições para esta API.
-                          policy.WithOrigins("http://localhost:5013") 
-                                .AllowAnyHeader()
-                                .AllowAnyMethod();
-                      });
-});
 
 // --- 1. Banco de Dados (Entity Framework + MySQL) ---
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
@@ -169,14 +151,6 @@ builder.Services.AddAuthorization(options =>
         policy.RequireRole(ClaimTypes.Role, "Admin", "Funcionario"));
 });
 
-
-// --- MUDANÇA (PASSO 32.0): Força o C# a enviar JSON em camelCase ---
-// (Isso corrige o erro 'TypeError: ... reading 'nome'' no app.js)
-builder.Services.Configure<Microsoft.AspNetCore.Http.Json.JsonOptions>(options =>
-{
-    options.SerializerOptions.PropertyNamingPolicy = System.Text.Json.JsonNamingPolicy.CamelCase;
-});
-// ========================================================================
 // ========================================================================
 // === CONSTRUÇÃO DO APLICATIVO (APP) ===
 // ========================================================================
@@ -202,10 +176,6 @@ app.UseStaticFiles();  // Serve arquivos da wwwroot (css, js)
 
 // --- Redirecionamento HTTPS ---
 // app.UseHttpsRedirection(); // Comentado temporariamente
-
-// --- MUDANÇA CORS (3 de 3): Mandamos o app USAR a política ---
-// (Deve vir ANTES de UseAuthentication/UseAuthorization)
-app.UseCors(MyAllowSpecificOrigins);
 
 // --- Autenticação e Autorização (Ordem Importante!) ---
 app.UseAuthentication(); // 1º: Identifica o usuário (lê o token)
@@ -244,32 +214,24 @@ authApi.MapPost("/registrar", async ([FromBody] RegistrarUsuarioDto dto, IAuthSe
     return Results.Ok("Usuário registrado com sucesso.");
 });
 
-// POST /api/auth/login (Passo 1 do Login) - Público
+// ========================================================================
+// === MUDANÇA (RESET PASSO 41.1) ===
+// Simplificamos o Login. Removemos o A2F.
+// ========================================================================
 authApi.MapPost("/login", async ([FromBody] LoginUsuarioDto dto, IAuthService authService) =>
 {
-    // Agora chama o LoginAsync que retorna o LoginPasso1ResponseDto
+    // Agora chama o LoginAsync que retorna o LoginResponseDto (token final)
     var resposta = await authService.LoginAsync(dto);
     if (resposta == null)
     {
         return Results.Unauthorized(); // Senha ou usuário errado
     }
-    // Retorna 200 OK com o DTO (que diz "A2FRequerido = true" e o código simulado)
+    // Retorna 200 OK com o token final
     return Results.Ok(resposta); 
 });
 
-// POST /api/auth/validar-a2f (Passo 2 do Login) - Público
-authApi.MapPost("/validar-a2f", async ([FromBody] ValidarA2FDto dto, IAuthService authService) =>
-{
-    // Chama o novo serviço para validar o código
-    var resposta = await authService.ValidarA2FAsync(dto);
-    if (resposta == null)
-    {
-        // Código A2F errado ou expirado
-        return Results.BadRequest("Código A2F inválido ou expirado.");
-    }
-    // Sucesso! Retorna o token JWT final.
-    return Results.Ok(resposta); 
-});
+// Removemos o endpoint /api/auth/validar-a2f
+// ========================================================================
 
 
 // --- Grupo de Endpoints de Ponto ---

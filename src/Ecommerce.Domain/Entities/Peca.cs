@@ -1,17 +1,24 @@
 using System;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Ecommerce.Domain.Entities
 {
     public class Peca
     {
-        public Guid Id { get; set; } // Atende RQ05 e RN01 (ID único)
+        [Key]
+        public Guid Id { get; set; }
+
+        [Required]
         public string Nome { get; set; } = string.Empty;
-        public string Descricao { get; set; } = string.Empty;
-        public string Tamanho { get; set; } = string.Empty;
-        
-        // Usamos 'decimal' para dinheiro, nunca 'double' ou 'float'
-        public decimal Preco { get; set; } // Atende RN03 (Preço > 0, vamos validar na Application)
-        
-        public int QuantidadeEstoque { get; set; } // Atende RN02 (Qtde >= 0)
+
+        public string Categoria { get; set; } = string.Empty;
+
+        [Column(TypeName = "decimal(18,2)")]
+        public decimal Preco { get; set; }
+
+        public int Estoque { get; set; }
+
+        public DateTime DataCadastro { get; set; } = DateTime.UtcNow;
     }
 }

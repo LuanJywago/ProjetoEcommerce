@@ -1,5 +1,5 @@
-using Ecommerce.Application.Interfaces; // ILogAuditoriaRepository, ICurrentUserService
-using Ecommerce.Domain.Entities; // LogAuditoria
+using Ecommerce.Application.Interfaces;
+using Ecommerce.Domain.Entities;
 using System;
 using System.Threading.Tasks;
 
@@ -8,30 +8,30 @@ namespace Ecommerce.Application.Features.Auditoria.Services
     public class AuditoriaService : IAuditoriaService
     {
         private readonly ILogAuditoriaRepository _logRepository;
-        private readonly ICurrentUserService _currentUserService;
 
-        public AuditoriaService(ILogAuditoriaRepository logRepository, ICurrentUserService currentUserService)
+        public AuditoriaService(ILogAuditoriaRepository logRepository)
         {
             _logRepository = logRepository;
-            _currentUserService = currentUserService;
         }
 
-        public async Task RegistrarLog(string acao, string detalhes)
+        public async Task RegistrarLog(string acao, string detalhes, Guid? usuarioId = null)
         {
-            // Pega o ID do usuário logado (ou usa um Guid vazio se não houver usuário - ex: erro interno)
-            var usuarioId = _currentUserService.GetUserId() ?? Guid.Empty;
-
             var log = new LogAuditoria
             {
                 Id = Guid.NewGuid(),
-                Timestamp = DateTime.UtcNow, // Usa a hora universal (boa prática)
-                UsuarioId = usuarioId,
                 Acao = acao,
-                Detalhes = detalhes
+                Detalhes = detalhes,
+                // CORREÇÃO: Usamos 'DataHora' porque é o nome que está na entidade LogAuditoria.cs
+                DataHora = DateTime.UtcNow, 
+                UsuarioId = usuarioId
             };
 
             await _logRepository.AddAsync(log);
-            // NÃO chama SaveChangesAsync aqui. Quem chamou o serviço de log é que vai salvar.
+        }
+
+        public Task RegistrarLog(string acao, string detalhes)
+        {
+            throw new NotImplementedException();
         }
     }
 }

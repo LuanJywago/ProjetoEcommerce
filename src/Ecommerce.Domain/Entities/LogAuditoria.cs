@@ -1,16 +1,15 @@
 using System;
+using System.ComponentModel.DataAnnotations;
 
 namespace Ecommerce.Domain.Entities
 {
     public class LogAuditoria
     {
+        [Key]
         public Guid Id { get; set; }
-        public DateTime Timestamp { get; set; }
-        public string Acao { get; set; } = string.Empty; // Ex: "Exclusão de Peça"
-        
-        public Guid UsuarioId { get; set; } // Quem fez (Atende RF09 e RN04)
-        public Usuario? Usuario { get; set; }
-        
-        public string Detalhes { get; set; } = string.Empty; // Ex: "Peça ID 123 foi excluída"
+        public string Acao { get; set; } = string.Empty;
+        public string Detalhes { get; set; } = string.Empty;
+        public DateTime DataHora { get; set; } = DateTime.UtcNow;
+        public Guid? UsuarioId { get; set; }
     }
 }

@@ -1,49 +1,48 @@
-// O namespace DEVE ser este:
+using Ecommerce.Application.Interfaces;
+using Ecommerce.Domain.Entities;
+using Ecommerce.Infrastructure.Persistence;
+using Microsoft.EntityFrameworkCore;
+using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
+
 namespace Ecommerce.Infrastructure.Persistence.Repositories
 {
-    using Ecommerce.Application.Interfaces;
-    using Ecommerce.Domain.Entities;
-    using Microsoft.EntityFrameworkCore;
-    using System.Collections.Generic;
-    using System.Threading.Tasks;
-
     public class PecaRepository : IPecaRepository
     {
         private readonly AppDbContext _context;
 
         public PecaRepository(AppDbContext context)
         {
-            _context = context; 
+            _context = context;
         }
 
-        public async Task AddAsync(Peca peca)
+        public async Task AdicionarAsync(Peca peca)
         {
             await _context.Pecas.AddAsync(peca);
+            await _context.SaveChangesAsync();
         }
 
-        public async Task<IEnumerable<Peca>> GetAllAsync()
+        public async Task<IEnumerable<Peca>> ObterTodasAsync()
         {
-            return await _context.Pecas.AsNoTracking().ToListAsync();
+            return await _context.Pecas.ToListAsync();
         }
 
-        public async Task<Peca?> GetByIdAsync(Guid id)
+        public async Task<Peca?> ObterPorIdAsync(Guid id)
         {
             return await _context.Pecas.FindAsync(id);
         }
 
-        public void Remove(Peca peca)
-        {
-            _context.Pecas.Remove(peca);
-        }
-
-        public async Task<int> SaveChangesAsync()
-        {
-            return await _context.SaveChangesAsync();
-        }
-
-        public void Update(Peca peca)
+        public async Task AtualizarAsync(Peca peca)
         {
             _context.Pecas.Update(peca);
+            await _context.SaveChangesAsync();
+        }
+
+        public async Task DeletarAsync(Peca peca)
+        {
+            _context.Pecas.Remove(peca);
+            await _context.SaveChangesAsync();
         }
     }
 }

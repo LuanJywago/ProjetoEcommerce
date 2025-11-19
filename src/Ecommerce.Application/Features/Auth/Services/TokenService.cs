@@ -1,41 +1,46 @@
+// ========================================================================
+// === IMPORTAÇÕES (USINGS) ===
+// (Estes são os 'usings' que estavam faltando e causando os erros)
+// ========================================================================
+using Ecommerce.Application.Interfaces;
 using Ecommerce.Domain.Entities;
 using Microsoft.Extensions.Configuration; // Para ler o appsettings.json
-using Microsoft.IdentityModel.Tokens;
+using Microsoft.IdentityModel.Tokens;     // Para SecurityAlgorithms e SymmetricSecurityKey
+using System;
 using System.Collections.Generic;
-using System.IdentityModel.Tokens.Jwt;
-using System.Security.Claims;
-using System.Text;
-using System; // Para Guid e DateTime
+using System.IdentityModel.Tokens.Jwt;    // Para JwtRegisteredClaimNames e JwtSecurityToken
+using System.Security.Claims;             // Para Claim e ClaimTypes
+using System.Text;                        // Para Encoding
 
 namespace Ecommerce.Application.Features.Auth.Services
 {
-    // A INTERFACE ITokenService NÃO está definida aqui dentro
-    // Ela está definida corretamente no arquivo ITokenService.cs
-
-    // Classe (Implementa a interface ITokenService)
-    public class TokenService : ITokenService // <-- Implementa a interface externa
+    public class TokenService : ITokenService
     {
-        private readonly SymmetricSecurityKey _chave;
+        // --- MUDANÇA (PASSO 47) ---
+        // Precisamos do IConfiguration para ler o appsettings.json
+        private readonly IConfiguration _configuration;
+        private readonly SymmetricSecurityKey _key; // Chave simétrica
         private readonly string _issuer;
         private readonly string _audience;
 
-        public TokenService(IConfiguration config)
+        public TokenService(IConfiguration configuration)
         {
-            // Leitura segura da chave
-            var chaveSecreta = config["Jwt:Key"];
-            if (string.IsNullOrEmpty(chaveSecreta))
+            _configuration = configuration;
+
+            // Lemos as configurações do appsettings.json
+            var jwtKey = _configuration["Jwt:Key"];
+            if (string.IsNullOrEmpty(jwtKey))
             {
-                throw new ArgumentNullException(nameof(chaveSecreta), "A chave secreta JWT ('Jwt:Key') não foi encontrada ou está vazia no appsettings.json");
+                throw new ArgumentNullException(nameof(jwtKey), "A chave secreta JWT ('Jwt:Key') não foi encontrada no appsettings.json para a GERAÇÃO.");
             }
-            _chave = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(chaveSecreta));
+            
+            _key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtKey));
+            _issuer = _configuration["Jwt:Issuer"] ?? "Ecommerce.API";
+            _audience = _configuration["Jwt:Audience"] ?? "Ecommerce.App";
 
-            // Leitura do Issuer e Audience (com valores padrão)
-            _issuer = config["Jwt:Issuer"] ?? "Ecommerce.API";
-            _audience = config["Jwt:Audience"] ?? "Ecommerce.App";
-
-            // Logs de Depuração (Para compararmos com o Program.cs)
+            // Log de depuração (Opcional, mas bom)
             Console.WriteLine("--- CRIAÇÃO JWT ---");
-            Console.WriteLine($"[TokenService.cs] Lendo Jwt:Key: '{chaveSecreta}'");
+            Console.WriteLine($"[TokenService.cs] Lendo Jwt:Key: '{jwtKey}'");
             Console.WriteLine($"[TokenService.cs] Lendo Jwt:Issuer: '{_issuer}'");
             Console.WriteLine($"[TokenService.cs] Lendo Jwt:Audience: '{_audience}'");
             Console.WriteLine("-------------------");
@@ -43,28 +48,45 @@ namespace Ecommerce.Application.Features.Auth.Services
 
         public string GerarToken(Usuario usuario)
         {
+            // 1. Criar a lista de "Claims" (informações dentro do token)
             var claims = new List<Claim>
             {
+                // Subject (O ID do usuário)
+                new Claim(JwtRegisteredClaimNames.Sub, usuario.Id.ToString()),
+                
+                // Email
                 new Claim(JwtRegisteredClaimNames.Email, usuario.Email),
-                new Claim(JwtRegisteredClaimNames.NameId, usuario.Id.ToString()),
-                new Claim(ClaimTypes.Role, usuario.Tipo.ToString()) // Adiciona o Cargo/Tipo
+                
+                // NameId (Nome de usuário)
+                new Claim(JwtRegisteredClaimNames.NameId, usuario.Email),
+                
+                // Jti (ID único do token)
+                new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
+
+                // ========================================================================
+                // === A CORREÇÃO FINAL (PASSO 47.3) ===
+                // O 'usuario.Tipo' é um ENUM, precisamos convertê-lo para String
+                // ========================================================================
+                new Claim(ClaimTypes.Role, usuario.Tipo.ToString())
             };
 
-            // Algoritmo HmacSha256
-            var credenciais = new SigningCredentials(_chave, SecurityAlgorithms.HmacSha256Signature);
+            // 2. Definir as credenciais de assinatura
+            var creds = new SigningCredentials(_key, SecurityAlgorithms.HmacSha256);
 
-            var tokenDescriptor = new SecurityTokenDescriptor
-            {
-                Subject = new ClaimsIdentity(claims),
-                Expires = DateTime.UtcNow.AddHours(3), // Expira em 3 horas
-                Issuer = _issuer,
-                Audience = _audience,
-                SigningCredentials = credenciais
-            };
+            // 3. Definir a data de expiração (ex: 2 horas)
+            var expiraEm = DateTime.UtcNow.AddHours(2); 
 
-            var tokenHandler = new JwtSecurityTokenHandler();
-            var token = tokenHandler.CreateToken(tokenDescriptor);
-            return tokenHandler.WriteToken(token);
+            // 4. Criar o Token
+            var token = new JwtSecurityToken(
+                issuer: _issuer,
+                audience: _audience,
+                claims: claims,
+                expires: expiraEm,
+                signingCredentials: creds
+            );
+
+            // 5. Escrever o token como uma string
+            return new JwtSecurityTokenHandler().WriteToken(token);
         }
     }
 }
