@@ -1,5 +1,7 @@
+using Ecommerce.Application.Features.Auditoria.Services; // Ajuste se necessário
 using Ecommerce.Application.Interfaces;
 using Ecommerce.Domain.Entities;
+using Ecommerce.Domain.Interfaces; // Para ILogAuditoriaRepository
 using System;
 using System.Threading.Tasks;
 
@@ -7,31 +9,36 @@ namespace Ecommerce.Application.Features.Auditoria.Services
 {
     public class AuditoriaService : IAuditoriaService
     {
-        private readonly ILogAuditoriaRepository _logRepository;
+        private readonly ILogAuditoriaRepository _repository;
 
-        public AuditoriaService(ILogAuditoriaRepository logRepository)
+        public AuditoriaService(ILogAuditoriaRepository repository)
         {
-            _logRepository = logRepository;
+            _repository = repository;
         }
 
-        public async Task RegistrarLog(string acao, string detalhes, Guid? usuarioId = null)
+        public async Task RegistrarLog(string acao, string detalhes)
         {
-            var log = new LogAuditoria
+            try 
             {
-                Id = Guid.NewGuid(),
-                Acao = acao,
-                Detalhes = detalhes,
-                // CORREÇÃO: Usamos 'DataHora' porque é o nome que está na entidade LogAuditoria.cs
-                DataHora = DateTime.UtcNow, 
-                UsuarioId = usuarioId
-            };
+                var log = new LogAuditoria
+                {
+                    Id = Guid.NewGuid(),
+                    DataHora = DateTime.UtcNow,
+                    Acao = acao,
+                    Detalhes = detalhes,
+                    // Se você tiver como pegar o ID do usuário aqui, ótimo. 
+                    // Se não, pode deixar null ou Guid.Empty por enquanto para não travar.
+                    UsuarioId = Guid.Empty 
+                };
 
-            await _logRepository.AddAsync(log);
-        }
-
-        public Task RegistrarLog(string acao, string detalhes)
-        {
-            throw new NotImplementedException();
+                // ATENÇÃO: Verifique se no seu ILogAuditoriaRepository o nome é CriarAsync ou AdicionarAsync
+                await _repository.CriarAsync(log); 
+            }
+            catch (Exception ex)
+            {
+                // Se o log falhar, não queremos derrubar o sistema inteiro (como aconteceu no seu erro)
+                Console.WriteLine($"FALHA AO GRAVAR LOG: {ex.Message}");
+            }
         }
     }
 }

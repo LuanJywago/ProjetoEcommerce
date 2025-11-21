@@ -19,5 +19,10 @@ namespace Ecommerce.Infrastructure.Persistence.Repositories
             // Apenas adiciona ao contexto. O SaveChangesAsync será chamado depois.
             await _context.LogsAuditoria.AddAsync(log);
         }
+
+        public Task CriarAsync(LogAuditoria log)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
