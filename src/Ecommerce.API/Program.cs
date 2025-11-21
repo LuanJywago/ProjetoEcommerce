@@ -28,6 +28,7 @@ using System.Linq;
 using System.IdentityModel.Tokens.Jwt;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Configuration;
+using System.Text.Json.Serialization; // <--- ADICIONADO: Para corrigir o erro do Enum
 
 // --- USINGS PARA PONTO ---
 using Ecommerce.Application.Features.Ponto.Services;
@@ -42,6 +43,15 @@ using Ecommerce.Application.Features.Pedidos.DTOs;
 // === CONFIGURAÇÃO INICIAL (BUILDER) ===
 // ========================================================================
 var builder = WebApplication.CreateBuilder(args);
+
+// ========================================================================
+// === CORREÇÃO DO BUG DE ENUM (ADICIONADO AGORA) ===
+// ========================================================================
+// Isso permite que o JSON envie "Funcionario" (texto) e o C# entenda como Enum
+builder.Services.Configure<Microsoft.AspNetCore.Http.Json.JsonOptions>(options =>
+{
+    options.SerializerOptions.Converters.Add(new JsonStringEnumConverter());
+});
 
 // ========================================================================
 // === REGISTRO DE SERVIÇOS ===
