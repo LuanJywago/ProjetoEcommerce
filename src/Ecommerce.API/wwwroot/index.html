@@ -4,63 +4,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Gestão - E-commerce</title>
-    <link rel="stylesheet" href="style.css?v=vendas_v1">
-    <style>
-        /* CSS Rápido para a tela de vendas (Injetado aqui para garantir que funcione sem mexer no style.css) */
-        .vendas-container {
-            display: flex;
-            gap: 20px;
-            margin-top: 20px;
-            text-align: left;
-        }
-        .coluna-produtos {
-            flex: 1.5;
-            border-right: 1px solid #ddd;
-            padding-right: 15px;
-            max-height: 400px;
-            overflow-y: auto;
-        }
-        .coluna-carrinho {
-            flex: 1;
-            background-color: #f8f9fa;
-            padding: 15px;
-            border-radius: 8px;
-            border: 1px solid #ddd;
-        }
-        .item-venda {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 10px;
-            border-bottom: 1px solid #eee;
-        }
-        .btn-add-carrinho {
-            background-color: #28a745;
-            color: white;
-            border: none;
-            padding: 5px 10px;
-            border-radius: 4px;
-            cursor: pointer;
-        }
-        .btn-rm-carrinho {
-            color: red;
-            background: none;
-            border: none;
-            cursor: pointer;
-            font-weight: bold;
-        }
-        .total-venda {
-            font-size: 1.2em;
-            font-weight: bold;
-            margin: 15px 0;
-            text-align: right;
-        }
-    </style>
+    <!-- Atualizei a versão para forçar o navegador a recarregar o CSS -->
+    <link rel="stylesheet" href="style.css?v=final_v3">
 </head>
 <body>
 
     <div class="login-card" id="main-card">
 
+        <!-- LOGIN -->
         <form id="login-form">
             <h2>Login E-commerce</h2>
 
@@ -83,6 +34,7 @@
             </p>
         </form>
 
+        <!-- CADASTRO -->
         <form id="register-form" style="display: none;">
             <h2>Criar Nova Conta</h2>
 
@@ -104,6 +56,7 @@
             <div class="input-group">
                 <label>Cargo</label>
                 <select id="reg-cargo">
+                    <option value="Cliente">Cliente</option> <!-- Opção Cliente Adicionada -->
                     <option value="Funcionario">Funcionário</option>
                     <option value="Admin">Administrador</option>
                 </select>
@@ -121,6 +74,6 @@
 
     </div>
 
-    <script src="app.js?v=vendas_v1"></script>
+    <script src="app.js?v=final_v3"></script>
 </body>
 </html>

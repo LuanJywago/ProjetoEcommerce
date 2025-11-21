@@ -1,20 +1,29 @@
-using Ecommerce.Domain.Entities; // Garante que o TipoUsuario é encontrado
-using System.Text.Json.Serialization; // Para [JsonIgnore]
+using Ecommerce.Domain.Entities; // Necessário para reconhecer TipoUsuario
+using System.ComponentModel.DataAnnotations;
 
 namespace Ecommerce.Application.Features.Auth.DTOs
 {
-    // --- DTOs ANTIGOS ---
     public class RegistrarUsuarioDto
     {
+        [Required]
         public string Nome { get; set; } = string.Empty;
+        
+        [Required, EmailAddress]
         public string Email { get; set; } = string.Empty;
+        
+        [Required]
         public string Senha { get; set; } = string.Empty;
+        
+        // Entrada: O sistema aceita "Funcionario" (texto) no JSON e converte para Enum aqui
         public TipoUsuario Tipo { get; set; } = TipoUsuario.Cliente; 
     }
 
     public class LoginUsuarioDto
     {
+        [Required, EmailAddress] // Adicionei validação aqui também
         public string Email { get; set; } = string.Empty;
+        
+        [Required]
         public string Senha { get; set; } = string.Empty;
     }
 
@@ -23,29 +32,8 @@ namespace Ecommerce.Application.Features.Auth.DTOs
         public string Token { get; set; } = string.Empty;
         public string Nome { get; set; } = string.Empty;
         public string Email { get; set; } = string.Empty;
-    }
-
-    // --- DTOs NOVOS (Para A2F) ---
-    public class LoginA2FRequeridoDto
-    {
-        public string Mensagem { get; set; } = string.Empty;
-        public string CodigoA2FSimulado { get; set; } = string.Empty; 
-    }
-
-    public class ValidarA2FDto
-    {
-        public string Email { get; set; } = string.Empty;
-        public string CodigoA2F { get; set; } = string.Empty;
-    }
-
-    public class LoginPasso1ResponseDto
-    {
-        public bool A2FRequerido { get; set; }
         
-        [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-        public LoginResponseDto? LoginSucesso { get; set; } 
-
-        [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-        public LoginA2FRequeridoDto? A2FInfo { get; set; }
+        // Saída: Devolvemos como String ("Admin") para o Frontend ler fácil
+        public string Tipo { get; set; } = string.Empty; 
     }
 }

@@ -10,5 +10,9 @@ namespace Ecommerce.Domain.Interfaces
         Task<Pedido> CriarAsync(Pedido pedido);
         Task<Pedido?> ObterPorIdAsync(Guid id);
         Task<IEnumerable<Pedido>> ListarPorUsuarioAsync(Guid usuarioId);
+
+        // --- NOVOS MÉTODOS PARA O RELATÓRIO ADMIN ---
+        Task<decimal> ObterFaturamentoTotalAsync();
+        Task<int> ObterTotalPedidosAsync();
     }
 }

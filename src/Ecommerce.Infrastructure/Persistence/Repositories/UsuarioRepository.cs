@@ -1,5 +1,5 @@
-using Ecommerce.Application.Interfaces;
 using Ecommerce.Domain.Entities;
+using Ecommerce.Domain.Interfaces;
 using Ecommerce.Infrastructure.Persistence;
 using Microsoft.EntityFrameworkCore;
 using System.Threading.Tasks;
@@ -15,28 +15,18 @@ namespace Ecommerce.Infrastructure.Persistence.Repositories
             _context = context;
         }
 
-        public async Task AddAsync(Usuario usuario)
-        {
-            await _context.Usuarios.AddAsync(usuario);
-        }
-
-        public async Task<Usuario?> GetByEmailAsync(string email)
+        // Método corrigido para bater com a Interface (era GetByEmailAsync)
+        public async Task<Usuario?> ObterPorEmailAsync(string email)
         {
             return await _context.Usuarios
                 .FirstOrDefaultAsync(u => u.Email.ToLower() == email.ToLower());
         }
 
-        public async Task<int> SaveChangesAsync()
+        // Método corrigido para bater com a Interface (era AddAsync)
+        public async Task CriarAsync(Usuario usuario)
         {
-            return await _context.SaveChangesAsync();
+            await _context.Usuarios.AddAsync(usuario);
+            await _context.SaveChangesAsync(); // Salva no banco imediatamente
         }
-
-        // --- NOVA IMPLEMENTAÇÃO ---
-        public void Update(Usuario usuario)
-        {
-            // Apenas marca a entidade como modificada
-            _context.Usuarios.Update(usuario);
-        }
-        // --- FIM DA NOVA IMPLEMENTAÇÃO ---
     }
 }

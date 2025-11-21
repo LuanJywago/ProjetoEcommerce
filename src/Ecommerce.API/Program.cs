@@ -1,43 +1,34 @@
-// ========================================================================
+using System.Security.Claims;
+using System.Text;
+using System.Text.Json.Serialization;
+using Ecommerce.API.Middleware;
+using Ecommerce.API.Services;
+using Ecommerce.API.Swagger;
+using Ecommerce.Application.Features.Auditoria.Services;
+using Ecommerce.Application.Features.Auth.DTOs;
+using Ecommerce.Application.Features.Auth.Services;
+using Ecommerce.Application.Features.Pecas.DTOs;
+using Ecommerce.Application.Features.Pecas.Services;
+using Ecommerce.Application.Features.Pedidos.DTOs;
+using Ecommerce.Application.Features.Pedidos.Services;
+using Ecommerce.Application.Features.Ponto.Services;
+using Ecommerce.Application.Interfaces;
+using Ecommerce.Domain.Interfaces;
+using Ecommerce.Infrastructure.Persistence;
+using Ecommerce.Infrastructure.Persistence.Repositories;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
+using Microsoft.OpenApi.Models;
+
+
 // === IMPORTAÇÕES (USINGS) ===
 // ========================================================================
-using Ecommerce.Infrastructure.Persistence;
-using Microsoft.EntityFrameworkCore;
-using Ecommerce.Application.Interfaces;
-using Ecommerce.Infrastructure.Persistence.Repositories;
-using Ecommerce.Application.Features.Pecas.Services;
-using Ecommerce.Application.Features.Pecas.DTOs;
-using Microsoft.AspNetCore.Mvc;
-using Ecommerce.Application.Features.Auth.Services;
-using Ecommerce.Application.Features.Auth.DTOs;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.IdentityModel.Tokens;
-using System.Text;
-using System.Security.Claims;
-using Microsoft.OpenApi.Models;
-using Ecommerce.API.Swagger;
-using Ecommerce.API.Middleware;
-using System;
-using Microsoft.Extensions.Logging;
-using Microsoft.AspNetCore.Authentication;
-using System.Threading.Tasks;
-using Ecommerce.Application.Features.Auditoria.Services;
-using Ecommerce.API.Services;
-using Microsoft.AspNetCore.Http;
-using System.Linq;
-using System.IdentityModel.Tokens.Jwt;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Configuration;
-using System.Text.Json.Serialization; // <--- ADICIONADO: Para corrigir o erro do Enum
 
 // --- USINGS PARA PONTO ---
-using Ecommerce.Application.Features.Ponto.Services;
-using Ecommerce.Application.Features.Ponto.DTOs;
 
 // --- USINGS PARA PEDIDOS ---
-using Ecommerce.Domain.Interfaces; 
-using Ecommerce.Application.Features.Pedidos.Services;
-using Ecommerce.Application.Features.Pedidos.DTOs;
 
 // ========================================================================
 // === CONFIGURAÇÃO INICIAL (BUILDER) ===
@@ -45,7 +36,7 @@ using Ecommerce.Application.Features.Pedidos.DTOs;
 var builder = WebApplication.CreateBuilder(args);
 
 // ========================================================================
-// === CORREÇÃO DO BUG DE ENUM (ADICIONADO AGORA) ===
+// === CORREÇÃO DO BUG DE ENUM ===
 // ========================================================================
 // Isso permite que o JSON envie "Funcionario" (texto) e o C# entenda como Enum
 builder.Services.Configure<Microsoft.AspNetCore.Http.Json.JsonOptions>(options =>
@@ -114,9 +105,19 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
         };
     });
 
+// ========================================================================
+// === POLÍTICAS DE ACESSO (ATUALIZADO) ===
+// ========================================================================
 builder.Services.AddAuthorization(options =>
 {
-    options.AddPolicy("AdminOuFuncionario", policy => policy.RequireRole(ClaimTypes.Role, "Admin", "Funcionario"));
+    // Staff: Só Admin e Funcionário podem mexer no Estoque e Ponto
+    options.AddPolicy("Staff", policy => policy.RequireRole("Admin", "Funcionario"));
+
+    // AdminOnly: Só Admin vê o relatório financeiro
+    options.AddPolicy("AdminOnly", policy => policy.RequireRole("Admin"));
+
+    // Comprador: Qualquer um logado (incluindo Cliente) pode comprar
+    options.AddPolicy("Comprador", policy => policy.RequireAuthenticatedUser());
 });
 
 var app = builder.Build();
@@ -143,28 +144,28 @@ app.UseAuthorization();
 // === ENDPOINTS ===
 // ========================================================================
 
-// --- PEÇAS ---
+// --- PEÇAS (Protegido por "Staff") ---
 var pecasApi = app.MapGroup("/api/pecas");
-pecasApi.MapPost("/", async ([FromBody] CriarPecaDto dto, IPecaService s) => { var p = await s.CriarPeca(dto); return Results.Created($"/api/pecas/{p.Id}", p); }).RequireAuthorization("AdminOuFuncionario");
-pecasApi.MapGet("/", async (IPecaService s) => Results.Ok(await s.ObterTodasPecas()));
+pecasApi.MapPost("/", async ([FromBody] CriarPecaDto dto, IPecaService s) => { var p = await s.CriarPeca(dto); return Results.Created($"/api/pecas/{p.Id}", p); }).RequireAuthorization("Staff");
+pecasApi.MapGet("/", async (IPecaService s) => Results.Ok(await s.ObterTodasPecas())); // Público para ver vitrine
 pecasApi.MapGet("/{id:guid}", async (Guid id, IPecaService s) => { var p = await s.ObterPecaPorId(id); return p is null ? Results.NotFound() : Results.Ok(p); });
-pecasApi.MapPut("/{id:guid}", async (Guid id, [FromBody] AtualizarPecaDto dto, IPecaService s) => { await s.AtualizarPeca(id, dto); return Results.NoContent(); }).RequireAuthorization("AdminOuFuncionario");
-pecasApi.MapDelete("/{id:guid}", async (Guid id, IPecaService s) => { await s.DeletarPeca(id); return Results.NoContent(); }).RequireAuthorization("AdminOuFuncionario");
+pecasApi.MapPut("/{id:guid}", async (Guid id, [FromBody] AtualizarPecaDto dto, IPecaService s) => { await s.AtualizarPeca(id, dto); return Results.NoContent(); }).RequireAuthorization("Staff");
+pecasApi.MapDelete("/{id:guid}", async (Guid id, IPecaService s) => { await s.DeletarPeca(id); return Results.NoContent(); }).RequireAuthorization("Staff");
 
 // --- AUTH ---
 var authApi = app.MapGroup("/api/auth");
 authApi.MapPost("/registrar", async ([FromBody] RegistrarUsuarioDto dto, IAuthService s) => { var ok = await s.RegistrarAsync(dto); return ok ? Results.Ok("Sucesso") : Results.BadRequest("Erro ao registrar"); });
 authApi.MapPost("/login", async ([FromBody] LoginUsuarioDto dto, IAuthService s) => { var res = await s.LoginAsync(dto); return res is null ? Results.Unauthorized() : Results.Ok(res); });
 
-// --- PONTO ---
-var pontoApi = app.MapGroup("/api/ponto").RequireAuthorization("AdminOuFuncionario");
+// --- PONTO (Protegido por "Staff") ---
+var pontoApi = app.MapGroup("/api/ponto").RequireAuthorization("Staff");
 pontoApi.MapPost("/entrada", async (IPontoService s) => Results.Ok(await s.RegistrarEntradaAsync()));
 pontoApi.MapPost("/saida", async (IPontoService s) => Results.Ok(await s.RegistrarSaidaAsync()));
 
 // --- PEDIDOS ---
-var pedidosApi = app.MapGroup("/api/pedidos").RequireAuthorization();
+var pedidosApi = app.MapGroup("/api/pedidos").RequireAuthorization("Comprador");
 
-// 1. Realizar Venda
+// 1. Venda (Todos logados)
 pedidosApi.MapPost("/realizar-venda", async ([FromBody] RealizarPedidoDto dto, IPedidoService pedidoService, ClaimsPrincipal user) => 
 {
     try 
@@ -187,7 +188,7 @@ pedidosApi.MapPost("/realizar-venda", async ([FromBody] RealizarPedidoDto dto, I
     }
 });
 
-// 2. Histórico de Pedidos (NOVO)
+// 2. Histórico de Pedidos (Todos logados)
 pedidosApi.MapGet("/meus-pedidos", async (IPedidoService pedidoService, ClaimsPrincipal user) => 
 {
     var userIdString = user.FindFirst(ClaimTypes.NameIdentifier)?.Value;
@@ -199,5 +200,11 @@ pedidosApi.MapGet("/meus-pedidos", async (IPedidoService pedidoService, ClaimsPr
 
     return Results.Ok(pedidos);
 });
+
+// 3. Relatório (SÓ ADMIN) - NOVO ENDPOINT
+pedidosApi.MapGet("/relatorio-admin", async (IPedidoService s) => 
+{
+    return Results.Ok(await s.GerarRelatorioAdminAsync());
+}).RequireAuthorization("AdminOnly");
 
 app.Run();

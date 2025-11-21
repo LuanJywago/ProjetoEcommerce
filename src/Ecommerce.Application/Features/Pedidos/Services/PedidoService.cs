@@ -32,15 +32,13 @@ namespace Ecommerce.Application.Features.Pedidos.Services
 
             foreach (var itemDto in pedidoDto.Itens)
             {
-                // 1. Busca a peça no banco
+                // 1. Busca a peça e valida
                 var peca = await _pecaRepository.ObterPorIdAsync(itemDto.PecaId);
+                if (peca == null) throw new Exception($"Peça {itemDto.PecaId} não encontrada.");
                 
-                if (peca == null)
-                    throw new Exception($"Peça com ID {itemDto.PecaId} não encontrada.");
-
                 // 2. Valida Estoque
-                if (peca.Estoque < itemDto.Quantidade)
-                    throw new Exception($"Estoque insuficiente para a peça '{peca.Nome}'. Disponível: {peca.Estoque}, Solicitado: {itemDto.Quantidade}");
+                if (peca.Estoque < itemDto.Quantidade) 
+                    throw new Exception($"Estoque insuficiente para a peça '{peca.Nome}'.");
 
                 // 3. Cria o Item do Pedido
                 var itemPedido = new PedidoItem
@@ -48,7 +46,7 @@ namespace Ecommerce.Application.Features.Pedidos.Services
                     Id = Guid.NewGuid(),
                     PecaId = peca.Id,
                     Quantidade = itemDto.Quantidade,
-                    PrecoUnitario = peca.Preco // Pega o preço atual da peça
+                    PrecoUnitario = peca.Preco
                 };
 
                 // 4. Adiciona ao pedido e soma o total
@@ -57,19 +55,30 @@ namespace Ecommerce.Application.Features.Pedidos.Services
 
                 // 5. BAIXA NO ESTOQUE
                 peca.Estoque -= itemDto.Quantidade;
-                
-                // Atualiza o estoque da peça no banco
                 await _pecaRepository.AtualizarAsync(peca); 
             }
 
-            // 6. Salva o pedido completo
             return await _pedidoRepository.CriarAsync(pedido);
         }
 
-        // --- NOVO MÉTODO PARA O HISTÓRICO ---
         public async Task<IEnumerable<Pedido>> ObterPedidosPorUsuarioAsync(Guid usuarioId)
         {
             return await _pedidoRepository.ListarPorUsuarioAsync(usuarioId);
+        }
+
+        // --- LÓGICA DO RELATÓRIO ---
+        public async Task<RelatorioVendasDto> GerarRelatorioAdminAsync()
+        {
+            var total = await _pedidoRepository.ObterFaturamentoTotalAsync();
+            var qtd = await _pedidoRepository.ObterTotalPedidosAsync();
+
+            return new RelatorioVendasDto
+            {
+                FaturamentoTotal = total,
+                TotalPedidos = qtd,
+                // Evita divisão por zero se não tiver pedidos
+                TicketMedio = qtd > 0 ? total / qtd : 0
+            };
         }
     }
 }

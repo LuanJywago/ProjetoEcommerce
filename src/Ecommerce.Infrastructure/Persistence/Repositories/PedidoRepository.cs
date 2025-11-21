@@ -29,7 +29,7 @@ namespace Ecommerce.Infrastructure.Persistence.Repositories
         {
             return await _context.Pedidos
                 .Include(p => p.Itens)
-                .ThenInclude(i => i.Peca) // Traz os dados da peça junto (nome, etc)
+                .ThenInclude(i => i.Peca)
                 .FirstOrDefaultAsync(p => p.Id == id);
         }
 
@@ -41,6 +41,20 @@ namespace Ecommerce.Infrastructure.Persistence.Repositories
                 .ThenInclude(i => i.Peca)
                 .OrderByDescending(p => p.DataPedido)
                 .ToListAsync();
+        }
+
+        // --- LÓGICA DO RELATÓRIO ---
+        public async Task<decimal> ObterFaturamentoTotalAsync()
+        {
+            // Se não tiver pedidos, retorna 0 para não dar erro
+            if (!await _context.Pedidos.AnyAsync()) return 0;
+            
+            return await _context.Pedidos.SumAsync(p => p.ValorTotal);
+        }
+
+        public async Task<int> ObterTotalPedidosAsync()
+        {
+            return await _context.Pedidos.CountAsync();
         }
     }
 }

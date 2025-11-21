@@ -1,10 +1,9 @@
 using Ecommerce.Application.Features.Auth.DTOs;
 using Ecommerce.Application.Interfaces;
 using Ecommerce.Domain.Entities;
-using System.Threading.Tasks;
-using BCryptNet = BCrypt.Net.BCrypt;
+using Ecommerce.Domain.Interfaces; // Agora vai puxar o Repositório certo do Domain
 using System;
-using Ecommerce.Application.Features.Auditoria.Services;
+using System.Threading.Tasks;
 
 namespace Ecommerce.Application.Features.Auth.Services
 {
@@ -12,68 +11,49 @@ namespace Ecommerce.Application.Features.Auth.Services
     {
         private readonly IUsuarioRepository _usuarioRepository;
         private readonly ITokenService _tokenService;
-        private readonly IAuditoriaService _auditoriaService;
 
-        public AuthService(IUsuarioRepository usuarioRepository, ITokenService tokenService, IAuditoriaService auditoriaService)
+        public AuthService(IUsuarioRepository usuarioRepository, ITokenService tokenService)
         {
             _usuarioRepository = usuarioRepository;
             _tokenService = tokenService;
-            _auditoriaService = auditoriaService;
         }
 
         public async Task<bool> RegistrarAsync(RegistrarUsuarioDto dto)
         {
-            var usuarioExistente = await _usuarioRepository.GetByEmailAsync(dto.Email);
-            if (usuarioExistente != null)
-            {
-                await _auditoriaService.RegistrarLog("REGISTRO_FALHA", $"E-mail já existente: {dto.Email}");
-                return false; 
-            }
-            
-            string senhaHash = BCryptNet.HashPassword(dto.Senha); 
-            
-            var novoUsuario = new Usuario
+            // Verifica se já existe
+            if (await _usuarioRepository.ObterPorEmailAsync(dto.Email) != null)
+                return false;
+
+            var usuario = new Usuario
             {
                 Id = Guid.NewGuid(),
                 Nome = dto.Nome,
                 Email = dto.Email,
-                SenhaHash = senhaHash,
-                Tipo = dto.Tipo
+                // Atribuição direta do Enum (Funciona porque corrigimos o DTO)
+                Tipo = dto.Tipo, 
+                SenhaHash = BCrypt.Net.BCrypt.HashPassword(dto.Senha)
             };
 
-            await _usuarioRepository.AddAsync(novoUsuario);
-            await _usuarioRepository.SaveChangesAsync();
-
-            // Correção do log com 2 argumentos
-            await _auditoriaService.RegistrarLog("REGISTRO_SUCESSO", $"Usuário registrado: {novoUsuario.Email} (ID: {novoUsuario.Id})");
-            
+            await _usuarioRepository.CriarAsync(usuario);
             return true;
         }
 
         public async Task<LoginResponseDto?> LoginAsync(LoginUsuarioDto dto)
         {
-            var usuario = await _usuarioRepository.GetByEmailAsync(dto.Email);
-            if (usuario == null)
-            {
-                await _auditoriaService.RegistrarLog("LOGIN_FALHA", $"Usuário não encontrado: {dto.Email}");
+            var usuario = await _usuarioRepository.ObterPorEmailAsync(dto.Email);
+            
+            if (usuario == null || !BCrypt.Net.BCrypt.Verify(dto.Senha, usuario.SenhaHash))
                 return null;
-            }
-
-            if (!BCryptNet.Verify(dto.Senha, usuario.SenhaHash))
-            {
-                await _auditoriaService.RegistrarLog("LOGIN_FALHA", $"Senha incorreta para: {dto.Email}");
-                return null;
-            }
 
             var token = _tokenService.GerarToken(usuario);
-
-            await _auditoriaService.RegistrarLog("LOGIN_SUCESSO", $"Login: {usuario.Email}");
 
             return new LoginResponseDto
             {
                 Token = token,
                 Nome = usuario.Nome,
-                Email = usuario.Email
+                Email = usuario.Email,
+                // Converte o Enum para String para o Frontend ler ("Admin", "Cliente")
+                Tipo = usuario.Tipo.ToString() 
             };
         }
     }

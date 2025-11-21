@@ -1,6 +1,7 @@
 using Ecommerce.Application.Interfaces;
 using Ecommerce.Domain.Entities;
-using Ecommerce.Infrastructure.Persistence; // Para AppDbContext
+using Ecommerce.Domain.Interfaces;
+using Ecommerce.Infrastructure.Persistence;
 using System.Threading.Tasks;
 
 namespace Ecommerce.Infrastructure.Persistence.Repositories
@@ -14,15 +15,16 @@ namespace Ecommerce.Infrastructure.Persistence.Repositories
             _context = context;
         }
 
-        public async Task AddAsync(LogAuditoria log)
-        {
-            // Apenas adiciona ao contexto. O SaveChangesAsync será chamado depois.
-            await _context.LogsAuditoria.AddAsync(log);
-        }
-
-        public Task CriarAsync(LogAuditoria log)
+        public Task AddAsync(LogAuditoria log)
         {
             throw new NotImplementedException();
+        }
+
+        public async Task CriarAsync(LogAuditoria log)
+        {
+            // Adiciona o log no banco e salva
+            _context.LogsAuditoria.Add(log);
+            await _context.SaveChangesAsync();
         }
     }
 }

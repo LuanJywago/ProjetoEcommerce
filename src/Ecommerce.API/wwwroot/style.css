@@ -40,106 +40,32 @@ body {
 }
 
 /* Inputs e Selects */
-.input-group {
-    margin-bottom: 20px;
-    width: 100%;
-}
-
-.input-group label {
-    display: block;
-    margin-bottom: 8px;
-    color: #555;
-    font-size: 0.9em;
-}
-
-.input-group input,
-.input-group select {
-    width: 100%;
-    padding: 12px;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    box-sizing: border-box;
-    font-size: 1em;
+.input-group { margin-bottom: 20px; width: 100%; }
+.input-group label { display: block; margin-bottom: 8px; color: #555; font-size: 0.9em; }
+.input-group input, .input-group select {
+    width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 5px; box-sizing: border-box; font-size: 1em;
 }
 
 /* Botões */
 .login-button {
-    width: 100%;
-    padding: 14px;
-    border: none;
-    border-radius: 5px;
-    background-color: #007bff;
-    color: white;
-    font-size: 1.1em;
-    font-weight: 600;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
+    width: 100%; padding: 14px; border: none; border-radius: 5px; background-color: #007bff; color: white; font-size: 1.1em; font-weight: 600; cursor: pointer; transition: background-color 0.3s ease;
 }
-
-.login-button:hover {
-    background-color: #0056b3;
-}
-
-.login-button:disabled {
-    background-color: #a0a0a0;
-    cursor: not-allowed;
-}
+.login-button:hover { background-color: #0056b3; }
+.login-button:disabled { background-color: #a0a0a0; cursor: not-allowed; }
 
 .top-right-button {
-    position: absolute;
-    top: 20px;
-    right: 20px;
-    padding: 8px 15px;
-    font-size: 0.85em;
-    background-color: #6c757d;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
+    position: absolute; top: 20px; right: 20px; padding: 8px 15px; font-size: 0.85em; background-color: #6c757d; color: white; border: none; border-radius: 5px; cursor: pointer;
 }
+.top-right-button:hover { background-color: #5a6268; }
 
-.top-right-button:hover {
-    background-color: #5a6268;
-}
-
-/* Links de Alternância */
-.switch-text {
-    text-align: center;
-    margin-top: 15px;
-    font-size: 0.9em;
-    color: #666;
-}
-
-.switch-text a {
-    color: #007bff;
-    text-decoration: none;
-    font-weight: bold;
-}
-
-.switch-text a:hover {
-    text-decoration: underline;
-}
+/* Links */
+.switch-text { text-align: center; margin-top: 15px; font-size: 0.9em; color: #666; }
+.switch-text a { color: #007bff; text-decoration: none; font-weight: bold; }
+.switch-text a:hover { text-decoration: underline; }
 
 /* Mensagens */
-.error-message {
-    color: #D8000C;
-    background-color: #FFD2D2;
-    padding: 10px;
-    border-radius: 5px;
-    margin-bottom: 15px;
-    display: none;
-    text-align: center;
-}
-
-.success-message {
-    color: #155724;
-    background-color: #D4EDDA;
-    padding: 10px;
-    border-radius: 5px;
-    margin-bottom: 15px;
-    display: none;
-    text-align: center;
-}
+.error-message { color: #D8000C; background-color: #FFD2D2; padding: 10px; border-radius: 5px; margin-bottom: 15px; display: none; text-align: center; }
+.success-message { color: #155724; background-color: #D4EDDA; padding: 10px; border-radius: 5px; margin-bottom: 15px; display: none; text-align: center; }
 
 /* Dashboard Menu */
 .dashboard-menu {
@@ -150,148 +76,29 @@ body {
 }
 
 .menu-item {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    padding: 15px;
-    background-color: #f8f9fa;
-    border: 2px solid #e9ecef;
-    border-radius: 10px;
-    cursor: pointer;
-    transition: all 0.2s ease;
-    color: #333;
-    font-weight: bold;
-    text-align: center;
-    font-size: 0.9em;
-    height: 130px;
+    display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 15px;
+    background-color: #f8f9fa; border: 2px solid #e9ecef; border-radius: 10px; cursor: pointer;
+    transition: all 0.2s ease; color: #333; font-weight: bold; text-align: center; font-size: 0.9em; height: 130px;
 }
+.menu-item:hover { background-color: #e2e6ea; border-color: #ced4da; transform: translateY(-3px); box-shadow: 0 4px 10px rgba(0,0,0,0.05); }
 
-.menu-item:hover {
-    background-color: #e2e6ea;
-    border-color: #ced4da;
-    transform: translateY(-3px);
-    box-shadow: 0 4px 10px rgba(0,0,0,0.05);
-}
+/* Estilos de Venda (Adicionados) */
+.vendas-container { display: flex; gap: 20px; margin-top: 20px; text-align: left; }
+.coluna-produtos { flex: 1.5; border-right: 1px solid #ddd; padding-right: 15px; max-height: 400px; overflow-y: auto; }
+.coluna-carrinho { flex: 1; background-color: #f8f9fa; padding: 15px; border-radius: 8px; border: 1px solid #ddd; }
+.item-venda { display: flex; justify-content: space-between; align-items: center; padding: 10px; border-bottom: 1px solid #eee; }
+.btn-add-carrinho { background-color: #28a745; color: white; border: none; padding: 5px 10px; border-radius: 4px; cursor: pointer; }
+.btn-rm-carrinho { color: red; background: none; border: none; cursor: pointer; font-weight: bold; }
 
-/* CRUD Peças */
-.pecas-form {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 15px;
-}
+/* Tabelas */
+.table-container { width: 100%; max-height: 400px; overflow-y: auto; margin-top: 10px; border: 1px solid #eee; }
+.pecas-table { width: 100%; border-collapse: collapse; font-size: 0.9em; }
+.pecas-table th { background-color: #f1f1f1; position: sticky; top: 0; text-align: left; padding: 10px; z-index: 1; }
+.pecas-table td { border-bottom: 1px solid #eee; padding: 10px; vertical-align: middle; }
+.pecas-table tr:hover { background-color: #f9f9f9; }
 
-.btn-full-width {
-    grid-column: 1 / -1;
-    width: 100%;
-    padding: 14px;
-    border: none;
-    border-radius: 5px;
-    color: white;
-    font-weight: bold;
-    cursor: pointer;
-    font-size: 1.1em;
-}
+.btn-editar { background-color: #ffc107; color: #333; border: none; padding: 6px 10px; border-radius: 4px; cursor: pointer; margin-right: 5px; font-weight: bold; }
+.btn-deletar { background-color: #dc3545; color: white; border: none; padding: 6px 10px; border-radius: 4px; cursor: pointer; font-weight: bold; }
 
-.btn-add {
-    background-color: #28a745;
-}
-
-.btn-add:hover {
-    background-color: #218838;
-}
-
-.btn-save {
-    background-color: #17a2b8;
-}
-
-.btn-save:hover {
-    background-color: #138496;
-}
-
-.table-container {
-    width: 100%;
-    max-height: 400px;
-    overflow-y: auto;
-    margin-top: 10px;
-    border: 1px solid #eee;
-}
-
-.pecas-table {
-    width: 100%;
-    border-collapse: collapse;
-    font-size: 0.9em;
-}
-
-.pecas-table th {
-    background-color: #f1f1f1;
-    position: sticky;
-    top: 0;
-    text-align: left;
-    padding: 10px;
-    z-index: 1;
-}
-
-.pecas-table td {
-    border-bottom: 1px solid #eee;
-    padding: 10px;
-    vertical-align: middle;
-}
-
-.pecas-table tr:hover {
-    background-color: #f9f9f9;
-}
-
-.btn-editar {
-    background-color: #ffc107;
-    color: #333;
-    border: none;
-    padding: 6px 10px;
-    border-radius: 4px;
-    cursor: pointer;
-    margin-right: 5px;
-    font-weight: bold;
-}
-
-.btn-editar:hover {
-    background-color: #e0a800;
-}
-
-.btn-deletar {
-    background-color: #dc3545;
-    color: white;
-    border: none;
-    padding: 6px 10px;
-    border-radius: 4px;
-    cursor: pointer;
-    font-weight: bold;
-}
-
-.btn-deletar:hover {
-    background-color: #c82333;
-}
-
-/* Ponto */
-.ponto-buttons {
-    display: flex;
-    gap: 15px;
-    margin-top: 30px;
-}
-
-.btn-ponto {
-    flex: 1;
-    padding: 20px;
-    font-size: 1em;
-    color: white;
-    border: none;
-    border-radius: 8px;
-    cursor: pointer;
-}
-
-.btn-entrada {
-    background-color: #28a745;
-}
-
-.btn-saida {
-    background-color: #fd7e14;
-}
+/* CRUD Form */
+.pecas-form { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
