@@ -4,6 +4,6 @@ namespace Ecommerce.Application.Features.Pedidos.DTOs
     {
         public decimal FaturamentoTotal { get; set; }
         public int TotalPedidos { get; set; }
-        public decimal TicketMedio { get; set; } // Média de valor por pedido
+        public decimal TicketMedio { get; set; } 
     }
 }

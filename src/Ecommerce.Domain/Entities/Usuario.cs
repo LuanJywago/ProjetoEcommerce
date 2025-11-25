@@ -17,14 +17,5 @@ namespace Ecommerce.Domain.Entities
         public string Email { get; set; } = string.Empty;
         public string SenhaHash { get; set; } = string.Empty;
         public TipoUsuario Tipo { get; set; }
-
-        // --- NOVOS CAMPOS PARA A2F --- QUE ESTÃO DESATIVADOS POR EU SNÃO SER GENIO E NÃO CONSEGUIR INSTAURAR ELES DE FORMA CORRETA E COESA, SEM BUGS :(
-        // Guarda o código A2F de 6 dígitos (como string para facilitar)
-        //public string? CodigoA2F { get; set; } // '?' indica que pode ser nulo
-
-        // Guarda a data/hora que o código expira (UTC)
-        
-       // public DateTime? DataExpiracaoCodigoA2F { get; set; } // '?' indica que pode ser nulo
-        // --- FIM DOS NOVOS CAMPOS ---
     }
 }

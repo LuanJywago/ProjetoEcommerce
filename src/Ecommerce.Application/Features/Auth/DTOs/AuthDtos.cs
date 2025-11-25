@@ -20,7 +20,7 @@ namespace Ecommerce.Application.Features.Auth.DTOs
 
     public class LoginUsuarioDto
     {
-        [Required, EmailAddress] // Adicionei validação aqui também
+        [Required, EmailAddress] // Validei aqui, Guilherme, pra gente saber
         public string Email { get; set; } = string.Empty;
         
         [Required]
@@ -32,8 +32,6 @@ namespace Ecommerce.Application.Features.Auth.DTOs
         public string Token { get; set; } = string.Empty;
         public string Nome { get; set; } = string.Empty;
         public string Email { get; set; } = string.Empty;
-        
-        // Saída: Devolvemos como String ("Admin") para o Frontend ler fácil
         public string Tipo { get; set; } = string.Empty; 
     }
 }

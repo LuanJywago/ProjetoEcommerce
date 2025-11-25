@@ -10,8 +10,6 @@ namespace Ecommerce.Application.Interfaces
     {
         Task<Pedido> RegistrarVendaAsync(RealizarPedidoDto pedidoDto, Guid usuarioId);
         Task<IEnumerable<Pedido>> ObterPedidosPorUsuarioAsync(Guid usuarioId);
-        
-        // --- NOVO MÉTODO PARA O RELATÓRIO ---
         Task<RelatorioVendasDto> GerarRelatorioAdminAsync();
     }
 }

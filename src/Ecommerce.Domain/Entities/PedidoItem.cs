@@ -1,11 +1,10 @@
 using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Text.Json.Serialization; // Importante para evitar ciclos no JSON se necessário
+using System.Text.Json.Serialization; 
 
 namespace Ecommerce.Domain.Entities
 {
-    // Renomeado de ItensPedido para PedidoItem para combinar com a lista do Pedido.cs
     public class PedidoItem 
     {
         [Key]

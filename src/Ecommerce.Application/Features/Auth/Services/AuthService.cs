@@ -12,7 +12,7 @@ namespace Ecommerce.Application.Features.Auth.Services
         private readonly IUsuarioRepository _usuarioRepository;
         private readonly ITokenService _tokenService;
 
-        public AuthService(IUsuarioRepository usuarioRepository, ITokenService tokenService)
+        public AuthService(IUsuarioRepository usuarioRepository, ITokenService tokenService, Auditoria.Services.IAuditoriaService @object)
         {
             _usuarioRepository = usuarioRepository;
             _tokenService = tokenService;

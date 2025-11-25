@@ -63,10 +63,6 @@ namespace Ecommerce.Application.Features.Auth.Services
                 // Jti (ID único do token)
                 new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
 
-                // ========================================================================
-                // === A CORREÇÃO FINAL (PASSO 47.3) ===
-                // O 'usuario.Tipo' é um ENUM, precisamos convertê-lo para String
-                // ========================================================================
                 new Claim(ClaimTypes.Role, usuario.Tipo.ToString())
             };
 

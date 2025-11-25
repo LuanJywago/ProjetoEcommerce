@@ -1,7 +1,7 @@
-using Ecommerce.Application.Interfaces; // Nossa interface
-using Microsoft.AspNetCore.Http; // Para IHttpContextAccessor
+using Ecommerce.Application.Interfaces;
+using Microsoft.AspNetCore.Http; 
 using System;
-using System.Security.Claims; // Para ClaimTypes
+using System.Security.Claims;
 
 namespace Ecommerce.API.Services
 {
@@ -25,7 +25,6 @@ namespace Ecommerce.API.Services
                 return userId;
             }
 
-            // Se não encontrar ou não conseguir converter, retorna null
             return null;
         }
     }

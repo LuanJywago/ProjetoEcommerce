@@ -26,17 +26,13 @@ namespace Ecommerce.Application.Features.Auditoria.Services
                     DataHora = DateTime.UtcNow,
                     Acao = acao,
                     Detalhes = detalhes,
-                    // Se você tiver como pegar o ID do usuário aqui, ótimo. 
-                    // Se não, pode deixar null ou Guid.Empty por enquanto para não travar.
                     UsuarioId = Guid.Empty 
                 };
 
-                // ATENÇÃO: Verifique se no seu ILogAuditoriaRepository o nome é CriarAsync ou AdicionarAsync
                 await _repository.CriarAsync(log); 
             }
             catch (Exception ex)
             {
-                // Se o log falhar, não queremos derrubar o sistema inteiro (como aconteceu no seu erro)
                 Console.WriteLine($"FALHA AO GRAVAR LOG: {ex.Message}");
             }
         }

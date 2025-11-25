@@ -13,7 +13,7 @@ namespace Ecommerce.API.Middleware
         // Adicionamos o ILogger para logar o erro de forma mais "profissional"
         private readonly ILogger<ErrorHandlingMiddleware> _logger;
 
-        // Modificamos o construtor para receber o ILogger
+        // construtor para receber o ILogger
         public ErrorHandlingMiddleware(RequestDelegate next, ILogger<ErrorHandlingMiddleware> logger)
         {
             _next = next;
