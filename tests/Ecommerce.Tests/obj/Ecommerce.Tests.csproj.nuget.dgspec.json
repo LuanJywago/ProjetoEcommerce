@@ -1,23 +1,23 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\luanj\\OneDrive\\Área de Trabalho\\EcommerceProjeto\\tests\\Ecommerce.Tests\\Ecommerce.Tests.csproj": {}
+    "C:\\Users\\luan.jywago\\ProjetoEcommerce\\tests\\Ecommerce.Tests\\Ecommerce.Tests.csproj": {}
   },
   "projects": {
-    "C:\\Users\\luanj\\OneDrive\\Área de Trabalho\\EcommerceProjeto\\src\\Ecommerce.Application\\Ecommerce.Application.csproj": {
+    "C:\\Users\\luan.jywago\\ProjetoEcommerce\\src\\Ecommerce.Application\\Ecommerce.Application.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\luanj\\OneDrive\\Área de Trabalho\\EcommerceProjeto\\src\\Ecommerce.Application\\Ecommerce.Application.csproj",
+        "projectUniqueName": "C:\\Users\\luan.jywago\\ProjetoEcommerce\\src\\Ecommerce.Application\\Ecommerce.Application.csproj",
         "projectName": "Ecommerce.Application",
-        "projectPath": "C:\\Users\\luanj\\OneDrive\\Área de Trabalho\\EcommerceProjeto\\src\\Ecommerce.Application\\Ecommerce.Application.csproj",
-        "packagesPath": "C:\\Users\\luanj\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\luanj\\OneDrive\\Área de Trabalho\\EcommerceProjeto\\src\\Ecommerce.Application\\obj\\",
+        "projectPath": "C:\\Users\\luan.jywago\\ProjetoEcommerce\\src\\Ecommerce.Application\\Ecommerce.Application.csproj",
+        "packagesPath": "C:\\Users\\luan.jywago\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\luan.jywago\\ProjetoEcommerce\\src\\Ecommerce.Application\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\luanj\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\luan.jywago\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
@@ -33,8 +33,8 @@
           "net8.0": {
             "targetAlias": "net8.0",
             "projectReferences": {
-              "C:\\Users\\luanj\\OneDrive\\Área de Trabalho\\EcommerceProjeto\\src\\Ecommerce.Domain\\Ecommerce.Domain.csproj": {
-                "projectPath": "C:\\Users\\luanj\\OneDrive\\Área de Trabalho\\EcommerceProjeto\\src\\Ecommerce.Domain\\Ecommerce.Domain.csproj"
+              "C:\\Users\\luan.jywago\\ProjetoEcommerce\\src\\Ecommerce.Domain\\Ecommerce.Domain.csproj": {
+                "projectPath": "C:\\Users\\luan.jywago\\ProjetoEcommerce\\src\\Ecommerce.Domain\\Ecommerce.Domain.csproj"
               }
             }
           }
@@ -106,20 +106,20 @@
         }
       }
     },
-    "C:\\Users\\luanj\\OneDrive\\Área de Trabalho\\EcommerceProjeto\\src\\Ecommerce.Domain\\Ecommerce.Domain.csproj": {
+    "C:\\Users\\luan.jywago\\ProjetoEcommerce\\src\\Ecommerce.Domain\\Ecommerce.Domain.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\luanj\\OneDrive\\Área de Trabalho\\EcommerceProjeto\\src\\Ecommerce.Domain\\Ecommerce.Domain.csproj",
+        "projectUniqueName": "C:\\Users\\luan.jywago\\ProjetoEcommerce\\src\\Ecommerce.Domain\\Ecommerce.Domain.csproj",
         "projectName": "Ecommerce.Domain",
-        "projectPath": "C:\\Users\\luanj\\OneDrive\\Área de Trabalho\\EcommerceProjeto\\src\\Ecommerce.Domain\\Ecommerce.Domain.csproj",
-        "packagesPath": "C:\\Users\\luanj\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\luanj\\OneDrive\\Área de Trabalho\\EcommerceProjeto\\src\\Ecommerce.Domain\\obj\\",
+        "projectPath": "C:\\Users\\luan.jywago\\ProjetoEcommerce\\src\\Ecommerce.Domain\\Ecommerce.Domain.csproj",
+        "packagesPath": "C:\\Users\\luan.jywago\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\luan.jywago\\ProjetoEcommerce\\src\\Ecommerce.Domain\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\luanj\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\luan.jywago\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
@@ -186,20 +186,20 @@
         }
       }
     },
-    "C:\\Users\\luanj\\OneDrive\\Área de Trabalho\\EcommerceProjeto\\tests\\Ecommerce.Tests\\Ecommerce.Tests.csproj": {
+    "C:\\Users\\luan.jywago\\ProjetoEcommerce\\tests\\Ecommerce.Tests\\Ecommerce.Tests.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\luanj\\OneDrive\\Área de Trabalho\\EcommerceProjeto\\tests\\Ecommerce.Tests\\Ecommerce.Tests.csproj",
+        "projectUniqueName": "C:\\Users\\luan.jywago\\ProjetoEcommerce\\tests\\Ecommerce.Tests\\Ecommerce.Tests.csproj",
         "projectName": "Ecommerce.Tests",
-        "projectPath": "C:\\Users\\luanj\\OneDrive\\Área de Trabalho\\EcommerceProjeto\\tests\\Ecommerce.Tests\\Ecommerce.Tests.csproj",
-        "packagesPath": "C:\\Users\\luanj\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\luanj\\OneDrive\\Área de Trabalho\\EcommerceProjeto\\tests\\Ecommerce.Tests\\obj\\",
+        "projectPath": "C:\\Users\\luan.jywago\\ProjetoEcommerce\\tests\\Ecommerce.Tests\\Ecommerce.Tests.csproj",
+        "packagesPath": "C:\\Users\\luan.jywago\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\luan.jywago\\ProjetoEcommerce\\tests\\Ecommerce.Tests\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\luanj\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\luan.jywago\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
@@ -215,8 +215,8 @@
           "net8.0": {
             "targetAlias": "net8.0",
             "projectReferences": {
-              "C:\\Users\\luanj\\OneDrive\\Área de Trabalho\\EcommerceProjeto\\src\\Ecommerce.Application\\Ecommerce.Application.csproj": {
-                "projectPath": "C:\\Users\\luanj\\OneDrive\\Área de Trabalho\\EcommerceProjeto\\src\\Ecommerce.Application\\Ecommerce.Application.csproj"
+              "C:\\Users\\luan.jywago\\ProjetoEcommerce\\src\\Ecommerce.Application\\Ecommerce.Application.csproj": {
+                "projectPath": "C:\\Users\\luan.jywago\\ProjetoEcommerce\\src\\Ecommerce.Application\\Ecommerce.Application.csproj"
               }
             }
           }

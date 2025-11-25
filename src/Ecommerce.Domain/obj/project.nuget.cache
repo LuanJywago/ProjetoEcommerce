@@ -1,12 +1,12 @@
 {
   "version": 2,
-  "dgSpecHash": "vCym8Qc5SV8=",
+  "dgSpecHash": "mVXE4Sc7sFY=",
   "success": true,
-  "projectFilePath": "C:\\Users\\luanj\\OneDrive\\Área de Trabalho\\EcommerceProjeto\\src\\Ecommerce.Domain\\Ecommerce.Domain.csproj",
+  "projectFilePath": "C:\\Users\\luan.jywago\\ProjetoEcommerce\\src\\Ecommerce.Domain\\Ecommerce.Domain.csproj",
   "expectedPackageFiles": [
-    "C:\\Users\\luanj\\.nuget\\packages\\microsoft.netcore.app.ref\\8.0.19\\microsoft.netcore.app.ref.8.0.19.nupkg.sha512",
-    "C:\\Users\\luanj\\.nuget\\packages\\microsoft.windowsdesktop.app.ref\\8.0.19\\microsoft.windowsdesktop.app.ref.8.0.19.nupkg.sha512",
-    "C:\\Users\\luanj\\.nuget\\packages\\microsoft.aspnetcore.app.ref\\8.0.19\\microsoft.aspnetcore.app.ref.8.0.19.nupkg.sha512"
+    "C:\\Users\\luan.jywago\\.nuget\\packages\\microsoft.netcore.app.ref\\8.0.19\\microsoft.netcore.app.ref.8.0.19.nupkg.sha512",
+    "C:\\Users\\luan.jywago\\.nuget\\packages\\microsoft.windowsdesktop.app.ref\\8.0.19\\microsoft.windowsdesktop.app.ref.8.0.19.nupkg.sha512",
+    "C:\\Users\\luan.jywago\\.nuget\\packages\\microsoft.aspnetcore.app.ref\\8.0.19\\microsoft.aspnetcore.app.ref.8.0.19.nupkg.sha512"
   ],
   "logs": []
 }

@@ -10,3 +10,15 @@ C:\Users\luanj\OneDrive\Área de Trabalho\EcommerceProjeto\src\Ecommerce.Domain\
 C:\Users\luanj\OneDrive\Área de Trabalho\EcommerceProjeto\src\Ecommerce.Domain\obj\Debug\net8.0\refint\Ecommerce.Domain.dll
 C:\Users\luanj\OneDrive\Área de Trabalho\EcommerceProjeto\src\Ecommerce.Domain\obj\Debug\net8.0\Ecommerce.Domain.pdb
 C:\Users\luanj\OneDrive\Área de Trabalho\EcommerceProjeto\src\Ecommerce.Domain\obj\Debug\net8.0\ref\Ecommerce.Domain.dll
+C:\Users\luan.jywago\ProjetoEcommerce\src\Ecommerce.Domain\bin\Debug\net8.0\Ecommerce.Domain.deps.json
+C:\Users\luan.jywago\ProjetoEcommerce\src\Ecommerce.Domain\bin\Debug\net8.0\Ecommerce.Domain.dll
+C:\Users\luan.jywago\ProjetoEcommerce\src\Ecommerce.Domain\bin\Debug\net8.0\Ecommerce.Domain.pdb
+C:\Users\luan.jywago\ProjetoEcommerce\src\Ecommerce.Domain\obj\Debug\net8.0\Ecommerce.Domain.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\luan.jywago\ProjetoEcommerce\src\Ecommerce.Domain\obj\Debug\net8.0\Ecommerce.Domain.AssemblyInfoInputs.cache
+C:\Users\luan.jywago\ProjetoEcommerce\src\Ecommerce.Domain\obj\Debug\net8.0\Ecommerce.Domain.AssemblyInfo.cs
+C:\Users\luan.jywago\ProjetoEcommerce\src\Ecommerce.Domain\obj\Debug\net8.0\Ecommerce.Domain.csproj.CoreCompileInputs.cache
+C:\Users\luan.jywago\ProjetoEcommerce\src\Ecommerce.Domain\obj\Debug\net8.0\Ecommerce.Domain.sourcelink.json
+C:\Users\luan.jywago\ProjetoEcommerce\src\Ecommerce.Domain\obj\Debug\net8.0\Ecommerce.Domain.dll
+C:\Users\luan.jywago\ProjetoEcommerce\src\Ecommerce.Domain\obj\Debug\net8.0\refint\Ecommerce.Domain.dll
+C:\Users\luan.jywago\ProjetoEcommerce\src\Ecommerce.Domain\obj\Debug\net8.0\Ecommerce.Domain.pdb
+C:\Users\luan.jywago\ProjetoEcommerce\src\Ecommerce.Domain\obj\Debug\net8.0\ref\Ecommerce.Domain.dll

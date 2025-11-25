@@ -28,5 +28,20 @@ namespace Ecommerce.Infrastructure.Persistence.Repositories
             await _context.Usuarios.AddAsync(usuario);
             await _context.SaveChangesAsync(); // Salva no banco imediatamente
         }
+
+        public void GetByEmailAsync(string email)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void AddAsync(Usuario usuario)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void SaveChangesAsync()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

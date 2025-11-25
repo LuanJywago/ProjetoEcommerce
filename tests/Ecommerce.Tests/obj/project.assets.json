@@ -6411,23 +6411,23 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\luanj\\.nuget\\packages\\": {},
+    "C:\\Users\\luan.jywago\\.nuget\\packages\\": {},
     "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\luanj\\OneDrive\\Área de Trabalho\\EcommerceProjeto\\tests\\Ecommerce.Tests\\Ecommerce.Tests.csproj",
+      "projectUniqueName": "C:\\Users\\luan.jywago\\ProjetoEcommerce\\tests\\Ecommerce.Tests\\Ecommerce.Tests.csproj",
       "projectName": "Ecommerce.Tests",
-      "projectPath": "C:\\Users\\luanj\\OneDrive\\Área de Trabalho\\EcommerceProjeto\\tests\\Ecommerce.Tests\\Ecommerce.Tests.csproj",
-      "packagesPath": "C:\\Users\\luanj\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\luanj\\OneDrive\\Área de Trabalho\\EcommerceProjeto\\tests\\Ecommerce.Tests\\obj\\",
+      "projectPath": "C:\\Users\\luan.jywago\\ProjetoEcommerce\\tests\\Ecommerce.Tests\\Ecommerce.Tests.csproj",
+      "packagesPath": "C:\\Users\\luan.jywago\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\luan.jywago\\ProjetoEcommerce\\tests\\Ecommerce.Tests\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
       ],
       "configFilePaths": [
-        "C:\\Users\\luanj\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\luan.jywago\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
@@ -6443,8 +6443,8 @@
         "net8.0": {
           "targetAlias": "net8.0",
           "projectReferences": {
-            "C:\\Users\\luanj\\OneDrive\\Área de Trabalho\\EcommerceProjeto\\src\\Ecommerce.Application\\Ecommerce.Application.csproj": {
-              "projectPath": "C:\\Users\\luanj\\OneDrive\\Área de Trabalho\\EcommerceProjeto\\src\\Ecommerce.Application\\Ecommerce.Application.csproj"
+            "C:\\Users\\luan.jywago\\ProjetoEcommerce\\src\\Ecommerce.Application\\Ecommerce.Application.csproj": {
+              "projectPath": "C:\\Users\\luan.jywago\\ProjetoEcommerce\\src\\Ecommerce.Application\\Ecommerce.Application.csproj"
             }
           }
         }

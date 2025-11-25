@@ -1,0 +1,42 @@
+version: '3.8'
+
+services:
+  # --- SERVIÇO 1: BANCO DE DADOS (MySQL) ---
+  mysql-db:
+    image: mysql:latest
+    container_name: ecommerce-mysql
+    restart: always
+    environment:
+      # Senha forte que definimos
+      MYSQL_ROOT_PASSWORD: M1nh4S3nh4Sup3rF0rt3123
+      # Nome do banco que será criado automaticamente
+      MYSQL_DATABASE: EcommerceDb
+    ports:
+      # Mapeia a porta 3307 do seu PC para a 3306 do Docker
+      - "3307:3306"
+    volumes:
+      # Persistência: Salva os dados no volume 'mysql_data'
+      - mysql_data:/var/lib/mysql
+
+  # --- SERVIÇO 2: SUA API .NET ---
+  ecommerce-api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: ecommerce-api
+    restart: on-failure
+    ports:
+      # Mapeia a porta 5013 do seu PC para a 8080 da API no Docker
+      - "5013:8080"
+    environment:
+      # Connection String apontando para o container 'mysql-db'
+      # Note que a porta interna entre containers é a padrão 3306
+      - ConnectionStrings__DefaultConnection=Server=mysql-db;Port=3306;Database=EcommerceDb;Uid=root;Pwd=M1nh4S3nh4Sup3rF0rt3123;
+      - ASPNETCORE_ENVIRONMENT=Development
+    depends_on:
+      - mysql-db # Espera o banco iniciar
+
+# --- DECLARAÇÃO DOS VOLUMES ---
+volumes:
+  mysql_data: 
+  # (Fica vazio aqui mesmo, significa "Use o padrão")
