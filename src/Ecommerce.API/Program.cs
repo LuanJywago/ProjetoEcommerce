@@ -22,50 +22,49 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 
-
-// === IMPORTAÇÕES (USINGS) ===
-// ========================================================================
-
-// --- USINGS PARA PONTO ---
-
-// --- USINGS PARA PEDIDOS ---
-
-// ========================================================================
-// === CONFIGURAÇÃO INICIAL (BUILDER) ===
-// ========================================================================
 var builder = WebApplication.CreateBuilder(args);
 
 // ========================================================================
-// === CORREÇÃO DO BUG DE ENUM ===
+// === CONFIGURAÇÃO DE JSON (CORREÇÃO ENUM) ===
 // ========================================================================
-// Isso permite que o JSON envie "Funcionario" (texto) e o C# entenda como Enum
 builder.Services.Configure<Microsoft.AspNetCore.Http.Json.JsonOptions>(options =>
 {
     options.SerializerOptions.Converters.Add(new JsonStringEnumConverter());
 });
 
 // ========================================================================
-// === REGISTRO DE SERVIÇOS ===
+// === BANCO DE DADOS E SWAGGER ===
 // ========================================================================
-
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
+
 builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString))
-);
+); //Conecta o EF ao MySQL pelo AppDbContext
 
 builder.Services.AddEndpointsApiExplorer();
+
 builder.Services.AddSwaggerGen(options =>
+//Configura o Swagger para aceitar o cadeado de login (Bearer Token)
 {
     options.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
     {
-        Name = "Authorization", Type = SecuritySchemeType.Http, Scheme = "Bearer", BearerFormat = "JWT",
-        In = ParameterLocation.Header, Description = "Insira o token JWT no formato: 'Bearer [SEU TOKEN]'"
+        Name = "Authorization",
+        Type = SecuritySchemeType.Http,
+        Scheme = "Bearer",
+        BearerFormat = "JWT",
+        In = ParameterLocation.Header,
+        Description = "Insira o token JWT no formato: 'Bearer [SEU TOKEN]'"
     });
     options.OperationFilter<SecurityRequirementsOperationFilter>();
 });
 
 builder.Services.AddHttpContextAccessor();
 
+// ========================================================================
+// === INJEÇÃO DE DEPENDÊNCIA (IOC) ===
+// ========================================================================
+
+//ADD SCOPED Diz que, toda vez que alguem pedir o IPecaRepository, entregue uma nova instancia de PecaRepository, tipo "ZERA" ELA durante o Http (scoped)
 // Peças
 builder.Services.AddScoped<IPecaRepository, PecaRepository>();
 builder.Services.AddScoped<IPecaService, PecaService>();
@@ -88,29 +87,36 @@ builder.Services.AddScoped<IPontoService, PontoService>();
 builder.Services.AddScoped<IPedidoRepository, PedidoRepository>();
 builder.Services.AddScoped<IPedidoService, PedidoService>();
 
+// ========================================================================
+// === AUTENTICAÇÃO E AUTORIZAÇÃO ===
+// ========================================================================
 
 // JWT
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-    .AddJwtBearer(options =>
+    .AddJwtBearer(options => //Ensina a ler o token
+    //Bearer é ensinado a validar a assinatura usando a chave secreta
     {
-        var jwtKey = builder.Configuration["Jwt:Key"];
+        var jwtKey = builder.Configuration["Jwt:Key"]; //Chave secreta (appsetings.json)
         var issuer = builder.Configuration["Jwt:Issuer"] ?? "Ecommerce.API";
         var audience = builder.Configuration["Jwt:Audience"] ?? "Ecommerce.App";
 
         options.TokenValidationParameters = new TokenValidationParameters
         {
-            ValidateIssuer = true, ValidateAudience = true, ValidateLifetime = true,
-            ValidateIssuerSigningKey = true, ValidIssuer = issuer, ValidAudience = audience,
+            ValidateIssuer = true,
+            ValidateAudience = true,
+            ValidateLifetime = true,
+            ValidateIssuerSigningKey = true,
+            ValidIssuer = issuer,
+            ValidAudience = audience,
             IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtKey!))
         };
     });
 
-// ========================================================================
-// === POLÍTICAS DE ACESSO (ATUALIZADO) ===
-// ========================================================================
+// Políticas de Acesso
 builder.Services.AddAuthorization(options =>
-{
+{   //Criando as regras - Define quem pode entrar onde
     // Staff: Só Admin e Funcionário podem mexer no Estoque e Ponto
+    // Política Staff so deixa passar se no token estiver com a Role correta (função)
     options.AddPolicy("Staff", policy => policy.RequireRole("Admin", "Funcionario"));
 
     // AdminOnly: Só Admin vê o relatório financeiro
@@ -123,7 +129,7 @@ builder.Services.AddAuthorization(options =>
 var app = builder.Build();
 
 // ========================================================================
-// === MIDDLEWARES ===
+// === MIDDLEWARES PIPELINE ===
 // ========================================================================
 
 app.UseMiddleware<ErrorHandlingMiddleware>();
@@ -141,34 +147,77 @@ app.UseAuthentication();
 app.UseAuthorization();
 
 // ========================================================================
-// === ENDPOINTS ===
+// === ENDPOINTS (MINIMAL APIs) ===
 // ========================================================================
 
 // --- PEÇAS (Protegido por "Staff") ---
 var pecasApi = app.MapGroup("/api/pecas");
-pecasApi.MapPost("/", async ([FromBody] CriarPecaDto dto, IPecaService s) => { var p = await s.CriarPeca(dto); return Results.Created($"/api/pecas/{p.Id}", p); }).RequireAuthorization("Staff");
-pecasApi.MapGet("/", async (IPecaService s) => Results.Ok(await s.ObterTodasPecas())); // Público para ver vitrine
-pecasApi.MapGet("/{id:guid}", async (Guid id, IPecaService s) => { var p = await s.ObterPecaPorId(id); return p is null ? Results.NotFound() : Results.Ok(p); });
-pecasApi.MapPut("/{id:guid}", async (Guid id, [FromBody] AtualizarPecaDto dto, IPecaService s) => { await s.AtualizarPeca(id, dto); return Results.NoContent(); }).RequireAuthorization("Staff");
-pecasApi.MapDelete("/{id:guid}", async (Guid id, IPecaService s) => { await s.DeletarPeca(id); return Results.NoContent(); }).RequireAuthorization("Staff");
+
+pecasApi.MapPost("/", async ([FromBody] CriarPecaDto dto, IPecaService service) => 
+{ 
+    var peca = await service.CriarPeca(dto); 
+    return Results.Created($"/api/pecas/{peca.Id}", peca); 
+})
+.RequireAuthorization("Staff");
+
+// Público para ver vitrine
+pecasApi.MapGet("/", async (IPecaService service) => 
+    Results.Ok(await service.ObterTodasPecas())); 
+
+pecasApi.MapGet("/{id:guid}", async (Guid id, IPecaService service) => 
+{ 
+    var peca = await service.ObterPecaPorId(id); 
+    return peca is null ? Results.NotFound() : Results.Ok(peca); 
+});
+
+pecasApi.MapPut("/{id:guid}", async (Guid id, [FromBody] AtualizarPecaDto dto, IPecaService service) => 
+{ 
+    await service.AtualizarPeca(id, dto); 
+    return Results.NoContent(); 
+})
+.RequireAuthorization("Staff");
+
+pecasApi.MapDelete("/{id:guid}", async (Guid id, IPecaService service) => 
+{ 
+    await service.DeletarPeca(id); 
+    return Results.NoContent(); 
+})
+.RequireAuthorization("Staff");
+
 
 // --- AUTH ---
 var authApi = app.MapGroup("/api/auth");
-authApi.MapPost("/registrar", async ([FromBody] RegistrarUsuarioDto dto, IAuthService s) => { var ok = await s.RegistrarAsync(dto); return ok ? Results.Ok("Sucesso") : Results.BadRequest("Erro ao registrar"); });
-authApi.MapPost("/login", async ([FromBody] LoginUsuarioDto dto, IAuthService s) => { var res = await s.LoginAsync(dto); return res is null ? Results.Unauthorized() : Results.Ok(res); });
+
+authApi.MapPost("/registrar", async ([FromBody] RegistrarUsuarioDto dto, IAuthService authService) => 
+{ 
+    var sucesso = await authService.RegistrarAsync(dto); 
+    return sucesso ? Results.Ok("Sucesso") : Results.BadRequest("Erro ao registrar"); 
+});
+
+authApi.MapPost("/login", async ([FromBody] LoginUsuarioDto dto, IAuthService authService) => 
+{ 
+    var response = await authService.LoginAsync(dto); 
+    return response is null ? Results.Unauthorized() : Results.Ok(response); 
+});
+
 
 // --- PONTO (Protegido por "Staff") ---
 var pontoApi = app.MapGroup("/api/ponto").RequireAuthorization("Staff");
-pontoApi.MapPost("/entrada", async (IPontoService s) => Results.Ok(await s.RegistrarEntradaAsync()));
-pontoApi.MapPost("/saida", async (IPontoService s) => Results.Ok(await s.RegistrarSaidaAsync()));
+
+pontoApi.MapPost("/entrada", async (IPontoService pontoService) => 
+    Results.Ok(await pontoService.RegistrarEntradaAsync()));
+
+pontoApi.MapPost("/saida", async (IPontoService pontoService) => 
+    Results.Ok(await pontoService.RegistrarSaidaAsync()));
+
 
 // --- PEDIDOS ---
 var pedidosApi = app.MapGroup("/api/pedidos").RequireAuthorization("Comprador");
 
 // 1. Venda (Todos logados)
-pedidosApi.MapPost("/realizar-venda", async ([FromBody] RealizarPedidoDto dto, IPedidoService pedidoService, ClaimsPrincipal user) => 
+pedidosApi.MapPost("/realizar-venda", async ([FromBody] RealizarPedidoDto dto, IPedidoService pedidoService, ClaimsPrincipal user) =>
 {
-    try 
+    try
     {
         var userIdString = user.FindFirst(ClaimTypes.NameIdentifier)?.Value;
         if (string.IsNullOrEmpty(userIdString)) return Results.Unauthorized();
@@ -176,10 +225,11 @@ pedidosApi.MapPost("/realizar-venda", async ([FromBody] RealizarPedidoDto dto, I
         var usuarioId = Guid.Parse(userIdString);
         var pedido = await pedidoService.RegistrarVendaAsync(dto, usuarioId);
 
-        return Results.Ok(new { 
-            mensagem = "Venda realizada com sucesso!", 
-            pedidoId = pedido.Id, 
-            total = pedido.ValorTotal 
+        return Results.Ok(new
+        {
+            mensagem = "Venda realizada com sucesso!",
+            pedidoId = pedido.Id,
+            total = pedido.ValorTotal
         });
     }
     catch (Exception ex)
@@ -189,22 +239,23 @@ pedidosApi.MapPost("/realizar-venda", async ([FromBody] RealizarPedidoDto dto, I
 });
 
 // 2. Histórico de Pedidos (Todos logados)
-pedidosApi.MapGet("/meus-pedidos", async (IPedidoService pedidoService, ClaimsPrincipal user) => 
+pedidosApi.MapGet("/meus-pedidos", async (IPedidoService pedidoService, ClaimsPrincipal user) =>
 {
     var userIdString = user.FindFirst(ClaimTypes.NameIdentifier)?.Value;
     if (string.IsNullOrEmpty(userIdString)) return Results.Unauthorized();
 
     var usuarioId = Guid.Parse(userIdString);
-    
+
     var pedidos = await pedidoService.ObterPedidosPorUsuarioAsync(usuarioId);
 
     return Results.Ok(pedidos);
 });
 
-// 3. Relatório (SÓ ADMIN) - NOVO ENDPOINT
-pedidosApi.MapGet("/relatorio-admin", async (IPedidoService s) => 
+// 3. Relatório (SÓ ADMIN)
+pedidosApi.MapGet("/relatorio-admin", async (IPedidoService pedidoService) =>
 {
-    return Results.Ok(await s.GerarRelatorioAdminAsync());
-}).RequireAuthorization("AdminOnly");
+    return Results.Ok(await pedidoService.GerarRelatorioAdminAsync());
+})
+.RequireAuthorization("AdminOnly");
 
 app.Run();
