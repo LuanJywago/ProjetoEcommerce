@@ -13,8 +13,7 @@ namespace Ecommerce.Infrastructure.Persistence
         public DbSet<Peca> Pecas { get; set; }
         public DbSet<RegistroPonto> RegistrosPonto { get; set; }
         public DbSet<LogAuditoria> LogsAuditoria { get; set; }
-        
-        // ADICIONADO AGORA:
+     
         public DbSet<Pedido> Pedidos { get; set; }
         public DbSet<PedidoItem> PedidoItens { get; set; }
 

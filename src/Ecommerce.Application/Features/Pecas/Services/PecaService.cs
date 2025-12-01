@@ -10,8 +10,11 @@ namespace Ecommerce.Application.Features.Pecas.Services
 {
     public class PecaService : IPecaService
     {
+        //Essa parte é responsável por guardar o Repositório usando a INTERFACE, fazendo um desacoplamento, pois o service não sabe qual BD Existente
+        //Não cria conexão com o banco, ele ja recebe pronto, podendo alterar o BD futuramente sem quebrar a RN
         private readonly IPecaRepository _pecaRepository;
-
+        // CONSTRUTOR: Injeção de dependencia
+        // Quando a API pede um PecaService, o sistema já entrega lá automaticamente pra quem estiver implementando o IPecaRepository pela infraestrutura
         public PecaService(IPecaRepository pecaRepository)
         {
             _pecaRepository = pecaRepository;
@@ -19,6 +22,8 @@ namespace Ecommerce.Application.Features.Pecas.Services
 
         public async Task<PecaResponseDto> CriarPeca(CriarPecaDto dto)
         {
+            //1. o DTO (Data Transfer Object - Caixa de transporte somente) Chega da API feita
+            //2. 
             // Mapeamento Manual (DTO -> Entidade)
             var peca = new Peca
             {
@@ -31,6 +36,8 @@ namespace Ecommerce.Application.Features.Pecas.Services
             };
 
             await _pecaRepository.AdicionarAsync(peca);
+            //Repositório é chamado para salvar
+            // PQ Async? Não trava o Servidor enquanto o BD trabalha
 
             // Mapeamento Manual (Entidade -> DTO de Resposta)
             return new PecaResponseDto
